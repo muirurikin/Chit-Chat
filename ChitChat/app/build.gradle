@@ -32,5 +32,9 @@ dependencies {
 
     /*APP INTRODUCTION*/
     compile 'com.github.paolorotolo:appintro:4.0.0'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
+
+    // WaveSwipeRefreshLayout
+    compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
 }
 apply plugin: 'com.google.gms.google-services'

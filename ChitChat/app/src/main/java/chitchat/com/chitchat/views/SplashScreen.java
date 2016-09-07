@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import chitchat.com.chitchat.MainActivity;
 import chitchat.com.chitchat.R;
 
 /**

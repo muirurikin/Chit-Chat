@@ -9,4 +9,11 @@ Small forum application.
     Briefly introduce the user to the application, Will only show once.
      
 
++ __WaveSwipeRefreshLayout__
+    
+    Alternative to the native(default) SwipeRefreshLayout
+    
+
+
+
 
