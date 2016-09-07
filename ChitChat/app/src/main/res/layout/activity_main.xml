@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="chitchat.com.chitchat.MainActivity">
+    tools:context="chitchat.com.chitchat.views.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+        <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
+            android:id="@+id/movie_recy_swiperefresh_layout_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -30,5 +36,12 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_dialog_email" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/forums_recycler_view_id"
+        android:layout_width="match_parent"
+        android:clipToPadding="false"
+        android:layout_height="508dp"
+        android:scrollbars="none" />
 
 </android.support.design.widget.CoordinatorLayout>
