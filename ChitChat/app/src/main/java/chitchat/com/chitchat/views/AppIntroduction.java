@@ -18,7 +18,7 @@ import chitchat.com.chitchat.R;
  * Package: chitchat.com.chitchat.views
  * Created by lusinabrian on 07/09/16 at 17:02
  * <p>
- * Description:
+ * Description: App introduction, will only be fired once by the application
  */
 
 public class AppIntroduction extends AppIntro2{
