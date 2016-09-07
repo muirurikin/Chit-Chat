@@ -6,16 +6,16 @@ package chitchat.com.chitchat.models;
  * */
 
 public class ForumModel{
-    private String forumName,unreadPosts,forumImage;
+    private String forumName,unreadPosts, forumImageUrl;
 
     /**Empty constructor*/
     public ForumModel(){}
 
     /**Constructor that takes in the parameters to pass to the Adapter*/
-    public ForumModel(String forumName, String unreadPosts, String forumImage) {
+    public ForumModel(String forumName, String unreadPosts, String forumImageUrl) {
         this.forumName = forumName;
         this.unreadPosts = unreadPosts;
-        this.forumImage = forumImage;
+        this.forumImageUrl = forumImageUrl;
     }
 
     public String getForumName() {
@@ -34,11 +34,11 @@ public class ForumModel{
         this.unreadPosts = unreadPosts;
     }
 
-    public String getForumImage() {
-        return forumImage;
+    public String getForumImageUrl() {
+        return forumImageUrl;
     }
 
-    public void setForumImage(String forumImage) {
-        this.forumImage = forumImage;
+    public void setForumImageUrl(String forumImageUrl) {
+        this.forumImageUrl = forumImageUrl;
     }
 }
