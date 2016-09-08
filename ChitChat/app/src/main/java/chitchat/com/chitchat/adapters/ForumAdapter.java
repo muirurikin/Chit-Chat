@@ -13,6 +13,7 @@ import java.util.List;
 
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.ForumModel;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Project: ChitChat
@@ -88,14 +89,15 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
-        public ImageView forumImage;
+        public CircleImageView forumImage;
         public TextView forumName;
         public TextView unreadMessages;
 
         public ViewHolder(View itemView) {
             super(itemView);
             forumName = (TextView)itemView.findViewById(R.id.forum_item_name);
-            forumImage = (ImageView)itemView.findViewById(R.id.forum_item_img);
+            forumImage = (CircleImageView)itemView.findViewById(R.id.forum_item_img);
+            unreadMessages = (TextView)itemView.findViewById(R.id.forum_item_unread);
         }
 
         /*binds the item views to the model class*/

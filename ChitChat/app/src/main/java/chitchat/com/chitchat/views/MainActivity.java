@@ -14,11 +14,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import chitchat.com.chitchat.R;
+import chitchat.com.chitchat.adapters.ForumAdapter;
 import chitchat.com.chitchat.models.ForumModel;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
-    private FirebaseRecyclerAdapter<ForumModel, > firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<ForumModel, ForumAdapter.ViewHolder> firebaseRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,17 @@ public class MainActivity extends AppCompatActivity {
     private void initFirebaseDatabase() {
         // initialize the Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ForumModel, ForumAdapter.ViewHolder>(
+                ForumModel.class,
+                R.layout.forum_item,
+                ForumAdapter.ViewHolder.class,
+                mDatabase.child()
+        ) {
+            @Override
+            protected void populateViewHolder(ForumAdapter.ViewHolder viewHolder, ForumModel model, int position) {
+
+            }
+        }
     }
 
     @Override
