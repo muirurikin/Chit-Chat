@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.ForumModel;
 
 /**
@@ -93,6 +94,8 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
 
         public ViewHolder(View itemView) {
             super(itemView);
+            forumName = (TextView)itemView.findViewById(R.id.forum_item_name);
+            forumImage = (ImageView)itemView.findViewById(R.id.forum_item_img);
         }
 
         /*binds the item views to the model class*/

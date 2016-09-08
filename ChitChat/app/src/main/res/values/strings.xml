@@ -2,4 +2,5 @@
     <string name="app_name">ChitChat</string>
     <string name="action_settings">Settings</string>
     <string name="forum_name">Forum name</string>
+    <string name="unread">5</string>
 </resources>

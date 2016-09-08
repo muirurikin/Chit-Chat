@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import chitchat.com.chitchat.R;
+import chitchat.com.chitchat.models.ForumModel;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
+    private FirebaseRecyclerAdapter<ForumModel, > firebaseRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        initFirebaseDatabase();
+    }
+
+    /**Initialize the Firebase database*/
+    private void initFirebaseDatabase() {
         // initialize the Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
