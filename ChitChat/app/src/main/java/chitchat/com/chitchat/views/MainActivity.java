@@ -9,9 +9,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import chitchat.com.chitchat.R;
 
 public class MainActivity extends AppCompatActivity {
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        // initialize the Database
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
