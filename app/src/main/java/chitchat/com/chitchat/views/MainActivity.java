@@ -33,12 +33,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mRecyclerView = (RecyclerView) findViewById(R.id.forums_recycler_view_id);
-        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)findViewById(R.id.forums_waveswiperefresh_layout_id);
-
         setSupportActionBar(toolbar);
 
+        initViews();
         initFirebaseDatabase();
+    }
+
+    /**Initialize the UI controls*/
+    private void initViews(){
+        mRecyclerView = (RecyclerView) findViewById(R.id.forums_recycler_view_id);
+        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)findViewById(R.id.forums_waveswiperefresh_layout_id);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager.setStackFromEnd(true);
     }
 
     /**Initialize the Firebase database*/
