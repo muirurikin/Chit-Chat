@@ -1,5 +1,6 @@
 package chitchat.com.chitchat.views;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -119,5 +120,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Task to refresh data from Firebase database
+     * */
+    private class FetchTask extends AsyncTask<Void, Void, String>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            waveSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }
