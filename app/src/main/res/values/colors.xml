@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-
-
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="blue">#0000FF</color>
@@ -14,7 +9,6 @@
     <color name="red">#FF0000</color>
     <color name="horizontal_divider">#8f8f8f</color>
     <color name="horizontal_vertical">#8f8f8f</color>
-    <!--  -->
     <color name="gray_d">#D0D0D0</color>
     <color name="gray_f">#F0F0F0</color>
     <color name="gray_e">#E0E0E0</color>

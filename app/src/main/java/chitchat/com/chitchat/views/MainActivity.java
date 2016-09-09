@@ -19,27 +19,24 @@ import chitchat.com.chitchat.Contract;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.adapters.ForumAdapter;
 import chitchat.com.chitchat.models.ForumModel;
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<ForumModel, ForumAdapter.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    private RecyclerView mRecyclerView;
+    private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mRecyclerView = (RecyclerView) findViewById(R.id.forums_recycler_view_id);
+        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)findViewById(R.id.forums_waveswiperefresh_layout_id);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        setSupportActionBar(toolbar);
 
         initFirebaseDatabase();
     }
@@ -67,9 +64,16 @@ public class MainActivity extends AppCompatActivity {
                 int forumsCount = firebaseRecyclerAdapter.getItemCount();
                 int lastVisibleForum = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
                 // If the recycler view is initially being loaded or the user is at the bottom of the list, scroll to the bottom of the list to show the newly added message.
-
+                if (lastVisibleForum == -1 ||
+                        (positionStart >= (forumsCount - 1) && lastVisibleForum == (positionStart - 1))) {
+                    mRecyclerView.scrollToPosition(positionStart);
+                }
             }
         });
+
+        // Set the layout manager and adapter
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
     @Override

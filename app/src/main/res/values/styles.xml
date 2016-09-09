@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/blue_waves</item>
         <item name="colorPrimaryDark">@color/dark_blue</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/black</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
