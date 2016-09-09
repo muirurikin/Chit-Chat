@@ -8,7 +8,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/forums_recycler_view_id"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:listitem="@layout/forum_item"
             android:clipToPadding="false" />
 
