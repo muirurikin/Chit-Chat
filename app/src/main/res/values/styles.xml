@@ -5,7 +5,6 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/blue_waves</item>
         <item name="colorPrimaryDark">@color/dark_blue</item>
-        <item name="android:textColorPrimary">@color/white</item>
         <item name="colorAccent">@color/black</item>
     </style>
 
