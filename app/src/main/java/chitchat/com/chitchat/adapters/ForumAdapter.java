@@ -86,6 +86,7 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
         ForumModel forumModel =  forumModelList.get(position);
         holder.itemView.setTag(forumModel);
         holder.bind(forumModel);
+        //TODO: add Glide library to set the forum images
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
@@ -102,6 +103,8 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
 
         /*binds the item views to the model class*/
         public void bind(ForumModel forumModel){
+            forumName.setText(forumModel.getForumName());
+            unreadMessages.setText(forumModel.getUnreadPosts());
 
         }
     }

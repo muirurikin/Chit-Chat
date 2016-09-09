@@ -7,13 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import chitchat.com.chitchat.Contract;
 import chitchat.com.chitchat.R;
@@ -22,6 +26,7 @@ import chitchat.com.chitchat.models.ForumModel;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<ForumModel, ForumAdapter.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayoutManager mLinearLayoutManager;
@@ -51,6 +56,18 @@ public class MainActivity extends AppCompatActivity {
     private void initFirebaseDatabase() {
         // initialize the Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String forumNode = dataSnapshot.getValue(String.class);
+                Log.d(MAINACTIVITY_TAG, "Value: "+ forumNode);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(MAINACTIVITY_TAG, "Failed to read value " + databaseError.toException());
+            }
+        });
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ForumModel, ForumAdapter.ViewHolder>(
                 ForumModel.class,
                 R.layout.forum_item,
