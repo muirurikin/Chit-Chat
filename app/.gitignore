@@ -1,4 +1,3 @@
-/build
 ### Android template
 # Built application files
 *.apk
@@ -6,6 +5,8 @@
 
 # Files for the ART/Dalvik VM
 *.dex
+
+.idea/
 
 # Java class files
 *.class
