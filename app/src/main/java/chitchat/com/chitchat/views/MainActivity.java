@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -80,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     //TODO: placeholder image
                     viewHolder.forumImage.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_account_circle_black_36dp));
                 }else{
-                    
+                    Glide.with(MainActivity.this)
+                            .load(model.getForumImageUrl())
+                            .into(viewHolder.forumImage);
                 }
             }
         };
