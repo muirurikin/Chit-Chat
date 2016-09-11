@@ -1,4 +1,4 @@
-package chitchat.com.chitchat.adapters;
+package chitchat.com.chitchat.presenter.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +16,7 @@ import chitchat.com.chitchat.models.ForumTextsModel;
 
 /**
  * Project: ChitChat
- * Package: chitchat.com.chitchat.adapters
+ * Package: chitchat.com.chitchat.presenter.adapters
  * Created by lusinabrian on 07/09/16 at 17:47
  * <p>
  * Description:

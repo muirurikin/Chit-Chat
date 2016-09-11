@@ -2,14 +2,11 @@ package chitchat.com.chitchat.views;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import chitchat.com.chitchat.Contract;
 import chitchat.com.chitchat.R;
-import chitchat.com.chitchat.adapters.ForumAdapter;
+import chitchat.com.chitchat.presenter.adapters.ForumAdapter;
 import chitchat.com.chitchat.models.ForumModel;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
