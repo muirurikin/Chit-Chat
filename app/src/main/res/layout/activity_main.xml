@@ -28,7 +28,7 @@
             android:id="@+id/forums_recycler_view_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/forum_item"
+            tools:listitem="@layout/room_item"
             android:clipToPadding="false" />
 
     </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>

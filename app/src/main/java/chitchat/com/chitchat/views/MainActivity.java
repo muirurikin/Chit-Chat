@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         });
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RoomModel, ForumAdapter.ViewHolder>(
                 RoomModel.class,
-                R.layout.forum_item,
+                R.layout.room_item,
                 ForumAdapter.ViewHolder.class,
                 mDatabase.child(Contract.FORUMNODE)
         ) {
