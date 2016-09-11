@@ -19,6 +19,7 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import chitchat.com.chitchat.R;
+import chitchat.com.chitchat.presenter.AuthLoginHandler;
 import chitchat.com.chitchat.presenter.Contract;
 import io.fabric.sdk.android.Fabric;
 
@@ -31,7 +32,7 @@ import io.fabric.sdk.android.Fabric;
  */
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String LOGINACTIVITY = LoginActivity.class.getSimpleName();
+    public static final String LOGINACTIVITY = LoginActivity.class.getSimpleName();
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private TwitterLoginButton twitterLoginButton;
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         twitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-                handleTwitterSession(result.data);
+                AuthLoginHandler.handleTwitterSession(result.data, firebaseAuth, getApplicationContext());
             }
 
             @Override
