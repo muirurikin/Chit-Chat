@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import chitchat.com.chitchat.R;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Project: ChitChat
@@ -23,6 +26,11 @@ import chitchat.com.chitchat.R;
 
 public class SplashScreen extends AppCompatActivity {
 
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "lZmbTrSTSSwS7z2oDWEACyW1e";
+    private static final String TWITTER_SECRET = "	nDwdEyGIp6ctzc1QmzXThBjbZNBfDFKCzxO6Pi2zdZnOHfosoV";
+
+
     /*FIELDS*/
     private static final String SPLASH_SCREEN_TAG = SplashScreen.class.getSimpleName();
     private TextView appName;
@@ -32,6 +40,8 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
+    TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+    Fabric.with(this, new Twitter(authConfig));
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
