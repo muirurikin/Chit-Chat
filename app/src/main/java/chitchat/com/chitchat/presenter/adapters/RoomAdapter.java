@@ -23,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * This will populate the RecyclerView in the Main Activity
  */
 
-public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
+public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
     private Context context;
     private List<RoomModel> roomModelList;
     private int ItemLayout;
@@ -32,7 +32,7 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
      * @param context Context in which this adapter is called
      * @param roomModelList List in which data will be extracted and transfered to items
      * @param itemLayout Layout to inflate data with**/
-    public ForumAdapter(Context context, List<RoomModel> roomModelList, int itemLayout) {
+    public RoomAdapter(Context context, List<RoomModel> roomModelList, int itemLayout) {
         this.context = context;
         this.roomModelList = roomModelList;
         ItemLayout = itemLayout;

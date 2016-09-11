@@ -18,14 +18,14 @@
         tools:ignore="MissingConstraints" />
 
     <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
-        android:id="@+id/forums_waveswiperefresh_layout_id"
+        android:id="@+id/rooms_waveswiperefresh_layout_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" >
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/forums_recycler_view_id"
+            android:id="@+id/rooms_recycler_view_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/room_item"

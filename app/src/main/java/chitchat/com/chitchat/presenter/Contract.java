@@ -1,4 +1,4 @@
-package chitchat.com.chitchat;
+package chitchat.com.chitchat.presenter;
 
 /**
  * Project: ChitChat
@@ -8,5 +8,5 @@ package chitchat.com.chitchat;
  */
 
 public class Contract {
-    public static final String FORUMNODE = "forums";
+    public static final String FORUMNODE = "rooms";
 }

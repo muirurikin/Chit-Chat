@@ -2,6 +2,7 @@ package chitchat.com.chitchat.views;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,16 +18,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import chitchat.com.chitchat.Contract;
+import chitchat.com.chitchat.presenter.Contract;
 import chitchat.com.chitchat.R;
-import chitchat.com.chitchat.presenter.adapters.ForumAdapter;
+import chitchat.com.chitchat.presenter.adapters.RoomAdapter;
 import chitchat.com.chitchat.models.RoomModel;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity {
     private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DatabaseReference mDatabase;
-    private FirebaseRecyclerAdapter<RoomModel, ForumAdapter.ViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView mRecyclerView;
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**Initialize the UI controls*/
     private void initViews(){
-        mRecyclerView = (RecyclerView) findViewById(R.id.forums_recycler_view_id);
-        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)findViewById(R.id.forums_waveswiperefresh_layout_id);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rooms_recycler_view_id);
+        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)findViewById(R.id.rooms_waveswiperefresh_layout_id);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
     }
@@ -57,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String forumNode = dataSnapshot.getValue(String.class);
-                Log.d(MAINACTIVITY_TAG, "Value: "+ forumNode);
+                String roomNode = dataSnapshot.getValue(String.class);
+                Log.d(MAINACTIVITY_TAG, "Value: "+ roomNode);
             }
 
             @Override
@@ -66,15 +67,21 @@ public class MainActivity extends AppCompatActivity {
                 Log.w(MAINACTIVITY_TAG, "Failed to read value " + databaseError.toException());
             }
         });
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RoomModel, ForumAdapter.ViewHolder>(
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder>(
                 RoomModel.class,
                 R.layout.room_item,
-                ForumAdapter.ViewHolder.class,
+                RoomAdapter.ViewHolder.class,
                 mDatabase.child(Contract.FORUMNODE)
         ) {
             @Override
-            protected void populateViewHolder(ForumAdapter.ViewHolder viewHolder, RoomModel model, int position) {
+            protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model, int position) {
                 viewHolder.forumName.setText(model.getForumName());
+                if(model.getForumImageUrl() == null){
+                    //TODO: placeholder image
+                    viewHolder.forumImage.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_account_circle_black_36dp));
+                }else{
+                    
+                }
             }
         };
 
