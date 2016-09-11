@@ -1,5 +1,7 @@
 package chitchat.com.chitchat.presenter;
 
+import chitchat.com.chitchat.BuildConfig;
+
 /**
  * Project: ChitChat
  * Package: chitchat.com.chitchat
@@ -9,4 +11,7 @@ package chitchat.com.chitchat.presenter;
 
 public class Contract {
     public static final String FORUMNODE = "rooms";
+    public static final String TWITTER_CONSUMER_KEY =BuldConfig.TWITTER_CONSUMER_KEY;
+    public static final String TWITTER_SECRET = BuildConfig.TWITTER_SECRET;
+
 }
