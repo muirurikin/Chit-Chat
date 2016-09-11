@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         twitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-
+                handleTwitterSession(result.data);
             }
 
             @Override
@@ -89,6 +89,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // pass the activity result to the twitter button
+        twitterLoginButton.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
