@@ -5,14 +5,14 @@ package chitchat.com.chitchat.models;
  * Model will have ImageView, Forum name and Badge counter displaying the number of new unread posts
  * */
 
-public class ForumModel{
+public class RoomModel {
     private String forumName,unreadPosts, forumImageUrl;
 
     /**Empty constructor*/
-    public ForumModel(){}
+    public RoomModel(){}
 
     /**Constructor that takes in the parameters to pass to the Adapter*/
-    public ForumModel(String forumName, String unreadPosts, String forumImageUrl) {
+    public RoomModel(String forumName, String unreadPosts, String forumImageUrl) {
         this.forumName = forumName;
         this.unreadPosts = unreadPosts;
         this.forumImageUrl = forumImageUrl;

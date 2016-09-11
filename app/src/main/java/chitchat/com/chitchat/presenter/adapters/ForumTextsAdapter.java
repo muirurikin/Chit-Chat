@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import chitchat.com.chitchat.models.ForumModel;
+import chitchat.com.chitchat.models.RoomModel;
 import chitchat.com.chitchat.models.ForumTextsModel;
 
 /**
@@ -29,9 +29,9 @@ public class ForumTextsAdapter extends RecyclerView.Adapter<ForumTextsAdapter.Vi
 
     /**Constuctor to initialize this adapter
      * @param mContext Context in which this adapter is called
-     * @param forumModelList List in which data will be extracted and transfered to items
+     * @param roomModelList List in which data will be extracted and transfered to items
      * @param itemLayout Layout to inflate data with**/
-    public ForumTextsAdapter(Context mContext, List<ForumModel> forumModelList, int itemLayout) {
+    public ForumTextsAdapter(Context mContext, List<RoomModel> roomModelList, int itemLayout) {
         this.mContext = mContext;
         this.forumTextsModelList = forumTextsModelList;
         itemLayout = itemLayout;

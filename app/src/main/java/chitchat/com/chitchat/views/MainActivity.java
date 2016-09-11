@@ -20,13 +20,13 @@ import com.google.firebase.database.ValueEventListener;
 import chitchat.com.chitchat.Contract;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.presenter.adapters.ForumAdapter;
-import chitchat.com.chitchat.models.ForumModel;
+import chitchat.com.chitchat.models.RoomModel;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity {
     private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DatabaseReference mDatabase;
-    private FirebaseRecyclerAdapter<ForumModel, ForumAdapter.ViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<RoomModel, ForumAdapter.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView mRecyclerView;
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
@@ -66,14 +66,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.w(MAINACTIVITY_TAG, "Failed to read value " + databaseError.toException());
             }
         });
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ForumModel, ForumAdapter.ViewHolder>(
-                ForumModel.class,
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RoomModel, ForumAdapter.ViewHolder>(
+                RoomModel.class,
                 R.layout.forum_item,
                 ForumAdapter.ViewHolder.class,
                 mDatabase.child(Contract.FORUMNODE)
         ) {
             @Override
-            protected void populateViewHolder(ForumAdapter.ViewHolder viewHolder, ForumModel model, int position) {
+            protected void populateViewHolder(ForumAdapter.ViewHolder viewHolder, RoomModel model, int position) {
                 viewHolder.forumName.setText(model.getForumName());
             }
         };

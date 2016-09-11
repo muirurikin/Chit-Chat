@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import chitchat.com.chitchat.R;
-import chitchat.com.chitchat.models.ForumModel;
+import chitchat.com.chitchat.models.RoomModel;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -25,16 +25,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
     private Context context;
-    private List<ForumModel> forumModelList;
+    private List<RoomModel> roomModelList;
     private int ItemLayout;
 
     /**Constuctor to initialize this adapter
      * @param context Context in which this adapter is called
-     * @param forumModelList List in which data will be extracted and transfered to items
+     * @param roomModelList List in which data will be extracted and transfered to items
      * @param itemLayout Layout to inflate data with**/
-    public ForumAdapter(Context context, List<ForumModel> forumModelList, int itemLayout) {
+    public ForumAdapter(Context context, List<RoomModel> roomModelList, int itemLayout) {
         this.context = context;
-        this.forumModelList = forumModelList;
+        this.roomModelList = roomModelList;
         ItemLayout = itemLayout;
     }
 
@@ -82,9 +82,9 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ForumModel forumModel =  forumModelList.get(position);
-        holder.itemView.setTag(forumModel);
-        holder.bind(forumModel);
+        RoomModel roomModel =  roomModelList.get(position);
+        holder.itemView.setTag(roomModel);
+        holder.bind(roomModel);
         //TODO: add Glide library to set the forum images
     }
 
@@ -101,9 +101,9 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
         }
 
         /*binds the item views to the model class*/
-        public void bind(ForumModel forumModel){
-            forumName.setText(forumModel.getForumName());
-            unreadMessages.setText(forumModel.getUnreadPosts());
+        public void bind(RoomModel roomModel){
+            forumName.setText(roomModel.getForumName());
+            unreadMessages.setText(roomModel.getUnreadPosts());
 
         }
     }
@@ -114,11 +114,11 @@ public class ForumAdapter extends RecyclerView.Adapter<ForumAdapter.ViewHolder>{
      */
     @Override
     public int getItemCount() {
-        return forumModelList.size();
+        return roomModelList.size();
     }
 
-    public void add(ForumModel itemModel, int position){
-        forumModelList.add(position,itemModel);
+    public void add(RoomModel itemModel, int position){
+        roomModelList.add(position,itemModel);
         notifyDataSetChanged();
     }
 
