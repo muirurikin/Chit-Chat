@@ -1,5 +1,6 @@
 package chitchat.com.chitchat.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class AuthLoginHandler {
     }
 
     /**handles authorization with twitter by taking in a Twitter Session*/
-    public static void handleTwitterSession(TwitterSession session, FirebaseAuth firebaseAuth, Context context) {
+    public static void handleTwitterSession(TwitterSession session, FirebaseAuth firebaseAuth, final Context context) {
         final String TAG = LoginActivity.LOGINACTIVITY;
         Log.d(TAG, "HandleTwitterSession:"+ session);
 
@@ -46,7 +47,7 @@ public class AuthLoginHandler {
 
         /*sign in user with Firebase credential*/
         firebaseAuth.signInWithCredential(authCredential)
-                .addOnCompleteListener(context, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
