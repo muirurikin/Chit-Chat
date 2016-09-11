@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -20,6 +21,8 @@ import io.fabric.sdk.android.Fabric;
  */
 
 public class LoginActivity extends AppCompatActivity {
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
@@ -28,5 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         Fabric.with(this, new Twitter(authConfig));
 
         setContentView(R.layout.loginactivity_layout);
+
+        // Initialize Firebase Auth
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 }
