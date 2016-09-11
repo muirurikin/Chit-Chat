@@ -3,6 +3,9 @@
 *.apk
 *.ap_
 .idea
+
+google-services.json
+
 # Files for the ART/Dalvik VM
 *.dex
 
