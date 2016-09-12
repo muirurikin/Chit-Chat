@@ -6,9 +6,13 @@ import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,7 +39,7 @@ import io.fabric.sdk.android.Fabric;
  * Description: LoginActivity to authenticate User
  */
 
-public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     public static final String LOGINACTIVITY = LoginActivity.class.getSimpleName();
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -78,6 +82,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void initViews() {
         twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
         googleSignInButton = (SignInButton) findViewById(R.id.google_signin_button);
+        googleSignInButton.setOnClickListener(this);
     }
 
     /**Initialize logins by TwitterLogin, FacebookLogin and GoogleLogin*/
@@ -104,16 +109,32 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .requestEmail()
                 .build();
 
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
-                .addApi()
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // result returned from launching the intent
+        if(requestCode == Contract.RC_SIGN_IN){
+            GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if(googleSignInResult.isSuccess()){
+                //Google sign in was successful authenticate with Firebase
+                GoogleSignInAccount account = googleSignInResult.getSignInAccount();
+                AuthLoginHandler.AuthGoogleWithFirebase(account, firebaseAuth, getApplicationContext());
+            }else{
+                //Google sign in failed
+                //TODO; Update user appropriately
+                Toast.makeText(this, "Google Sign in failes", Toast.LENGTH_SHORT).show();
+            }
+
+        }
         // pass the activity result to the twitter button
         twitterLoginButton.onActivityResult(requestCode, resultCode, data);
     }
@@ -134,6 +155,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
 
     }
 }

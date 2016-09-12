@@ -13,5 +13,5 @@ public class Contract {
     public static final String FORUMNODE = "rooms";
     public static final String TWITTER_CONSUMER_KEY = BuildConfig.TWITTER_CONSUMER_KEY;
     public static final String TWITTER_SECRET = BuildConfig.TWITTER_SECRET;
-    private static final int RC_SIGN_IN = 9001;
+    public static final int RC_SIGN_IN = 9001;
 }
