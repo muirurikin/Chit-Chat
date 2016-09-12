@@ -63,6 +63,9 @@ public class AuthLoginHandler {
                             Toast.makeText(context, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
+                        else{
+                            MainActivity.start(context);
+                        }
                     }
                 });
     }
