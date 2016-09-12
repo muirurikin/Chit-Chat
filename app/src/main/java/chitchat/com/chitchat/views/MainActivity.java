@@ -1,5 +1,7 @@
 package chitchat.com.chitchat.views;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -147,5 +149,10 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             waveSwipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    /**START THIS PARTICULAR ACTIVITY*/
+    public static void start(Context c) {
+        c.startActivity(new Intent(c, MainActivity.class));
     }
 }

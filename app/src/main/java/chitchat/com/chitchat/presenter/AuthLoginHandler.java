@@ -2,6 +2,7 @@ package chitchat.com.chitchat.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.TwitterAuthProvider;
 import com.twitter.sdk.android.core.TwitterSession;
 
 import chitchat.com.chitchat.views.LoginActivity;
+import chitchat.com.chitchat.views.MainActivity;
 
 /**
  * Project: Chit-Chat
@@ -82,6 +84,8 @@ public class AuthLoginHandler {
                     Log.w(TAG, "signInWithCredential", task.getException());
                     Toast.makeText(context, "Authentication with Google failed.",
                             Toast.LENGTH_SHORT).show();
+                }else{
+                    MainActivity.start(context);
                 }
             }
         });
