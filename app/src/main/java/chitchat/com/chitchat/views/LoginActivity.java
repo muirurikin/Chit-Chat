@@ -31,6 +31,8 @@ import chitchat.com.chitchat.presenter.AuthLoginHandler;
 import chitchat.com.chitchat.presenter.Contract;
 import io.fabric.sdk.android.Fabric;
 
+import static chitchat.com.chitchat.presenter.Contract.RC_SIGN_IN;
+
 /**
  * Project: Chit-Chat
  * Package: chitchat.com.chitchat.views
@@ -122,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onActivityResult(requestCode, resultCode, data);
 
         // result returned from launching the intent
-        if(requestCode == Contract.RC_SIGN_IN){
+        if(requestCode == RC_SIGN_IN){
             GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if(googleSignInResult.isSuccess()){
                 //Google sign in was successful authenticate with Firebase
@@ -155,11 +157,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d(LOGINACTIVITY, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.google_signin_button:
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+        }
     }
 }
