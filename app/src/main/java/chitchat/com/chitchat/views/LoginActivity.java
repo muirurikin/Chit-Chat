@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.twitter.sdk.android.Twitter;
@@ -31,11 +35,13 @@ import io.fabric.sdk.android.Fabric;
  * Description: LoginActivity to authenticate User
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
     public static final String LOGINACTIVITY = LoginActivity.class.getSimpleName();
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private TwitterLoginButton twitterLoginButton;
+    private SignInButton googleSignInButton;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
@@ -71,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
     /**Initialize UI Controls*/
     private void initViews() {
         twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
+        googleSignInButton = (SignInButton) findViewById(R.id.google_signin_button);
     }
 
     /**Initialize logins by TwitterLogin, FacebookLogin and GoogleLogin*/
@@ -89,6 +96,14 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Twitter Login failure", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
 
     }
 
@@ -111,5 +126,10 @@ public class LoginActivity extends AppCompatActivity {
         if (authStateListener != null) {
             firebaseAuth.removeAuthStateListener(authStateListener);
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
