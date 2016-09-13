@@ -5,4 +5,6 @@
     <string name="unread">5</string>
     <string name="loginwith_login">Login with...</string>
     <string name="rooms_title">Rooms</string>
+
+    <string name="facebook_app_id">fb842317502572524</string>
 </resources>
