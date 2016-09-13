@@ -77,16 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
-                viewHolder.forumName.setText(model.getForumName());
-                if(model.getForumImageUrl() == null){
-                    //TODO: placeholder image
-                    viewHolder.forumImage.setImageDrawable(ContextCompat.getDrawable(MainActivity.this,
-                            R.drawable.ic_account_circle_black_36dp));
-                }else{
-                    Glide.with(MainActivity.this)
-                            .load(model.getForumImageUrl())
-                            .into(viewHolder.forumImage);
-                }
+                viewHolder.bind(model, MainActivity.this);
                 Log.d(MAINACTIVITY_TAG,
                         "Image URL: " + model.getForumImageUrl() + "Name: "+ model.getForumName()+
                 "Unreads: " + model.getUnreadPosts());

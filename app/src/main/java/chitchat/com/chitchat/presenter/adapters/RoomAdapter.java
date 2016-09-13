@@ -1,6 +1,7 @@
 package chitchat.com.chitchat.presenter.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.RoomModel;
+import chitchat.com.chitchat.views.MainActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -85,13 +89,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
         RoomModel roomModel =  roomModelList.get(position);
         holder.itemView.setTag(roomModel);
         holder.bind(roomModel);
-        //TODO: add Glide library to set the forum images
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
-        public CircleImageView forumImage;
-        public TextView forumName;
-        public TextView unreadMessages;
+        private CircleImageView forumImage;
+        private TextView forumName;
+        private TextView unreadMessages;
+        private Context context;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -101,9 +105,17 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
         }
 
         /*binds the item views to the model class*/
-        public void bind(RoomModel roomModel){
+        public void bind(RoomModel roomModel, Context context){
             forumName.setText(roomModel.getForumName());
             unreadMessages.setText(roomModel.getUnreadPosts());
+            if(roomModel.getForumImageUrl() == null){
+                forumImage.setImageDrawable(ContextCompat.getDrawable(context,
+                        R.drawable.ic_account_circle_black_36dp));
+            }else{
+                Glide.with(context)
+                        .load(roomModel.getForumImageUrl())
+                        .into(forumImage);
+            }
 
         }
     }
