@@ -36,6 +36,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.presenter.AuthLoginHandler;
 import chitchat.com.chitchat.presenter.Contract;
+import chitchat.com.chitchat.presenter.LoginPresenter;
 import io.fabric.sdk.android.Fabric;
 
 import static chitchat.com.chitchat.presenter.Contract.RC_SIGN_IN;
@@ -47,7 +48,7 @@ import static chitchat.com.chitchat.presenter.Contract.RC_SIGN_IN;
  * Description: LoginActivity to authenticate User
  */
 
-public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, LoginPresenter {
     public static final String LOGINACTIVITY = LoginActivity.class.getSimpleName();
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -143,7 +144,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     /*if successful start the MainActivity*/
                     MainActivity.start(LoginActivity.this);
                 }else{
-                    //display error to user
+                    displayError();
                 }
             }
 
@@ -215,5 +216,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
         }
+    }
+
+    @Override
+    public void displayError() {
+        Toast.makeText(this, "Login with Facebook Failed", Toast.LENGTH_SHORT).show();
     }
 }
