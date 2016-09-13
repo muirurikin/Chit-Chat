@@ -2,7 +2,6 @@ package chitchat.com.chitchat.presenter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -75,7 +74,6 @@ public class AuthLoginHandler {
         final String TAG = LoginActivity.LOGINACTIVITY;
         Log.d(TAG, "FirebaseAuthWithGoogle"+account.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-
         auth.signInWithCredential(credential).addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

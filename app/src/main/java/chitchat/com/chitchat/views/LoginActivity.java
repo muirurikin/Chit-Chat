@@ -37,7 +37,6 @@ import static chitchat.com.chitchat.presenter.Contract.RC_SIGN_IN;
  * Project: Chit-Chat
  * Package: chitchat.com.chitchat.views
  * Created by lusinabrian on 11/09/16 at 15:07
- * <p>
  * Description: LoginActivity to authenticate User
  */
 
@@ -52,10 +51,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(Contract.TWITTER_CONSUMER_KEY, Contract.TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
 
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(
+                Contract.TWITTER_CONSUMER_KEY,
+                Contract.TWITTER_SECRET);
+
+        Fabric.with(LoginActivity.this, new Twitter(authConfig));
         setContentView(R.layout.loginactivity_layout);
+
         initViews();
         initializeLogins();
 
