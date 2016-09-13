@@ -72,12 +72,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     //User is signed in, start main activity
                     String userData = user.getDisplayName() + " "+ user.getEmail()+ " "+ user.getUid();
                     Log.d(LOGINACTIVITY, "AuthStateChanged:SignedIn" +userData);
+                    Intent openMain = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(openMain);
                 }else{
                     // user is signed out
                     Log.d(LOGINACTIVITY, "AuthStateChanged:signedOut:");
                 }
-                Intent openMain = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(openMain);
             }
         };
     }
