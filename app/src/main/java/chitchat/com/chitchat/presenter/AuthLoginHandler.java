@@ -99,7 +99,8 @@ public class AuthLoginHandler {
      *
      * @param token Token received when their is successful login
      * @param auth Authenticator with Firebase
-     * @param context The context this method will be called*/
+     * @param context The context this method will be called
+     * @return isSucess, returns whether the process was successful*/
     public static boolean handleFacebookLoginToken(AccessToken token, FirebaseAuth auth,
                                                    final Context context){
         final boolean[] isSucess = {false};
