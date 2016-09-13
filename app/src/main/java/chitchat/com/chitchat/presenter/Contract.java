@@ -10,7 +10,8 @@ import chitchat.com.chitchat.BuildConfig;
  */
 
 public class Contract {
-    public static final String FORUMNODE = "rooms";
+    public static final String ROOMSNODE = "rooms";
+    public static final String ROOMNAME = "name";
     public static final String TWITTER_CONSUMER_KEY = BuildConfig.TWITTER_CONSUMER_KEY;
     public static final String TWITTER_SECRET = BuildConfig.TWITTER_SECRET;
     public static final int RC_SIGN_IN = 9001;

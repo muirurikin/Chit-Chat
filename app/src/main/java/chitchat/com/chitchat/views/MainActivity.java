@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private void initFirebaseDatabase() {
         // initialize the Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        /*mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String roomNode = dataSnapshot.getValue(String.class);
@@ -68,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(MAINACTIVITY_TAG, "Failed to read value " + databaseError.toException());
             }
-        });
+        });*/
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder>(
                 RoomModel.class,
                 R.layout.room_item,
                 RoomAdapter.ViewHolder.class,
-                mDatabase.child(Contract.FORUMNODE)
+                mDatabase.child(Contract.ROOMSNODE).child(Contract.ROOMNAME)
         ) {
             @Override
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model, int position) {
@@ -86,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                             .load(model.getForumImageUrl())
                             .into(viewHolder.forumImage);
                 }
+                Log.d(MAINACTIVITY_TAG,
+                        "Image URL: " + model.getForumImageUrl() + "Name: "+ model.getForumName()+
+                "Unreads: " + model.getUnreadPosts());
             }
         };
 
