@@ -36,6 +36,22 @@ android {
     dataBinding {
         enabled = true
     }
+
+    productFlavors {
+
+        // Build variant to include the Facebook Android SDk
+        // The Facebook Android SDK has a min SDK version of 15
+        facebook {
+            minSdkVersion 15
+        }
+
+        // Build variant to exclude the Facebook Android SDK
+        // Firebase Authentication has a min SDK version of 9
+        nofacebook {
+            minSdkVersion 9
+        }
+
+    }
 }
 
 repositories {
@@ -73,7 +89,8 @@ dependencies {
     }
 
     /*FACEBOOK LOGIN*/
-    compile 'com.facebook.android:facebook-android-sdk:4.9.0'
+    facebookCompile 'com.facebook.android:facebook-android-sdk:4.9.0'
+    
     compile 'com.google.android.gms:play-services-auth:9.4.0'
 }
 apply plugin: 'com.google.gms.google-services'
