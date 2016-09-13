@@ -139,8 +139,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onSuccess(LoginResult loginResult) {
                 Log.d(LOGINACTIVITY,"FacebookLoginSuccess "+ loginResult);
                 //pass the token to handle with Firebase login
-
-
+                if(AuthLoginHandler.handleFacebookLoginToken(loginResult.getAccessToken(),firebaseAuth, LoginActivity.this)){
+                    /*if successful start the MainActivity*/
+                    MainActivity.start(LoginActivity.this);
+                }else{
+                    //display error to user
+                }
             }
 
             @Override
