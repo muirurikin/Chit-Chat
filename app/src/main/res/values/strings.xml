@@ -4,4 +4,5 @@
     <string name="forum_name">Forum name</string>
     <string name="unread">5</string>
     <string name="loginwith_login">Login with...</string>
+    <string name="rooms_title">Rooms</string>
 </resources>

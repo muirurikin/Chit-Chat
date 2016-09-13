@@ -20,7 +20,6 @@ import io.fabric.sdk.android.Fabric;
  * Project: ChitChat
  * Package: chitchat.com.chitchat.views
  * Created by lusinabrian on 07/09/16 at 17:11
- * <p>
  * Description:
  */
 
@@ -33,52 +32,52 @@ public class SplashScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-    super.onCreate(savedInstanceState);
-    requestWindowFeature(Window.FEATURE_NO_TITLE);
-    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.splash_screen_layout);
 
-    setContentView(R.layout.splash_screen_layout);
+        initializeUICtrls();
 
-    initializeUICtrls();
+        //set the timer
+        Thread timer = new Thread(){
+            @Override
+            public void run(){
+                SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                //create a new boolean and preference and set it to true
+                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+                //if activity has never started before
 
-    //set the timer
-    Thread timer = new Thread(){
-        @Override
-        public void run(){
-            SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            //create a new boolean and preference and set it to true
-            boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
-            //if activity has never started before
+                if(isFirstStart){
+                    //launch this activity
+                    Intent intent = new Intent(SplashScreen.this, AppIntroduction.class);
+                    startActivity(intent);
 
-            if(isFirstStart){
-                //launch this activity
-                Intent intent = new Intent(SplashScreen.this, AppIntroduction.class);
-                startActivity(intent);
+                    //make a new shared preferences editor
+                    SharedPreferences.Editor editor = getPrefs.edit();
 
-                //make a new shared preferences editor
-                SharedPreferences.Editor editor = getPrefs.edit();
+                    //  Edit preference to make it false because we don't want this to run again
+                    editor.putBoolean("firstStart", false);
 
-                //  Edit preference to make it false because we don't want this to run again
-                editor.putBoolean("firstStart", false);
-
-                //apply the changes
-                editor.apply();
-            }else{
-                try{
-                    sleep(2000);
-                    Intent openLogin = new Intent(SplashScreen.this, LoginActivity.class);
-                    startActivity(openLogin);
-                }catch(InterruptedException ie){
-                    ie.printStackTrace();
-                    Log.d(SPLASH_SCREEN_TAG, ie.toString());
+                    //apply the changes
+                    editor.apply();
+                }else{
+                    try{
+                        sleep(2000);
+                        Intent openLogin = new Intent(SplashScreen.this, LoginActivity.class);
+                        startActivity(openLogin);
+                    }catch(InterruptedException ie){
+                        ie.printStackTrace();
+                        Log.d(SPLASH_SCREEN_TAG, ie.toString());
+                    }
                 }
             }
-        }
-    };
-    //start timer
-    timer.start();
-}
+        };
+        //start timer
+        timer.start();
+    }
 
     /**Initializes the User Interface controls
      * obtains the appName, appTag and appIcon variables and finds their ids in the layout*/
