@@ -15,7 +15,6 @@ import java.util.List;
 
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.RoomModel;
-import chitchat.com.chitchat.views.MainActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -88,7 +87,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         RoomModel roomModel =  roomModelList.get(position);
         holder.itemView.setTag(roomModel);
-        holder.bind(roomModel);
+        holder.bind(roomModel, context);
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
@@ -106,14 +105,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
 
         /*binds the item views to the model class*/
         public void bind(RoomModel roomModel, Context context){
-            forumName.setText(roomModel.getForumName());
+            forumName.setText(roomModel.getRoom());
             unreadMessages.setText(roomModel.getUnreadPosts());
-            if(roomModel.getForumImageUrl() == null){
+            if(roomModel.getImg_url() == null){
                 forumImage.setImageDrawable(ContextCompat.getDrawable(context,
                         R.drawable.ic_account_circle_black_36dp));
             }else{
                 Glide.with(context)
-                        .load(roomModel.getForumImageUrl())
+                        .load(roomModel.getImg_url())
                         .into(forumImage);
             }
 
