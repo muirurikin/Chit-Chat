@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
                 Log.d(MAINACTIVITY_TAG,
-                        "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom()+
+                        "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
                                 "Unreads: " + model.getUnreadPosts());
                 viewHolder.bind(model, MainActivity.this);
             }

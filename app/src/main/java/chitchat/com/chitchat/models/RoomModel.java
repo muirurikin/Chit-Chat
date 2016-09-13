@@ -6,24 +6,24 @@ package chitchat.com.chitchat.models;
  * */
 
 public class RoomModel {
-    private String room,unreadPosts, img_url;
+    private String room_name,unreadPosts, img_url;
 
     /**Empty constructor*/
     public RoomModel(){}
 
     /**Constructor that takes in the parameters to pass to the Adapter*/
-    public RoomModel(String room, String unreadPosts, String img_url) {
-        this.room = room;
+    public RoomModel(String room_name, String unreadPosts, String img_url) {
+        this.room_name = room_name;
         this.unreadPosts = unreadPosts;
         this.img_url = img_url;
     }
 
-    public String getRoom() {
-        return room;
+    public String getRoom_name() {
+        return room_name;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
+    public void setRoom_name(String room_name) {
+        this.room_name = room_name;
     }
 
     public String getUnreadPosts() {

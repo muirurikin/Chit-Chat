@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="room"
+            name="room_name"
             type="chitchat.com.chitchat.models.RoomModel"/>
     </data>-->
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
