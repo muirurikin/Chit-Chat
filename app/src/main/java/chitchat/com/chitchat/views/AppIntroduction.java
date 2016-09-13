@@ -23,8 +23,8 @@ import chitchat.com.chitchat.R;
 public class AppIntroduction extends AppIntro2{
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         //add fragments for the introduction (3 slides)
         //TODO: change titles and descriptions
@@ -62,7 +62,7 @@ public class AppIntroduction extends AppIntro2{
 
     /**open main activity*/
     public void openMain(){
-        Intent openMain = new Intent(AppIntroduction.this, MainActivity.class);
+        Intent openMain = new Intent(AppIntroduction.this, LoginActivity.class);
         startActivity(openMain);
     }
 }
