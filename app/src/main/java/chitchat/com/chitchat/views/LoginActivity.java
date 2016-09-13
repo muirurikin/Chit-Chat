@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         twitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-                AuthLoginHandler.handleTwitterSession(result.data, firebaseAuth, getApplicationContext());
+                AuthLoginHandler.handleTwitterSession(result.data, firebaseAuth, LoginActivity.this);
             }
 
             @Override
@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             if(googleSignInResult.isSuccess()){
                 //Google sign in was successful authenticate with Firebase
                 GoogleSignInAccount account = googleSignInResult.getSignInAccount();
-                AuthLoginHandler.AuthGoogleWithFirebase(account, firebaseAuth, getApplicationContext());
+                AuthLoginHandler.AuthGoogleWithFirebase(account, firebaseAuth, LoginActivity.this);
             }else{
                 //Google sign in failed
                 //TODO; Update user appropriately

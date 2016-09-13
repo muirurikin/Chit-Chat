@@ -27,14 +27,14 @@ import chitchat.com.chitchat.views.MainActivity;
  * Description: Handles Login via Twitter, Facebook, Google and Github
  */
 public class AuthLoginHandler {
+
     private static AuthLoginHandler ourInstance = new AuthLoginHandler();
 
     public static AuthLoginHandler getInstance() {
         return ourInstance;
     }
 
-    private AuthLoginHandler() {
-    }
+    private AuthLoginHandler() {}
 
     /**handles authorization with twitter by taking in a Twitter Session*/
     public static void handleTwitterSession(TwitterSession session, FirebaseAuth firebaseAuth, final Context context) {
