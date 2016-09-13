@@ -75,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.child(Contract.ROOMSNODE).child(Contract.ROOMNAME)
         ) {
             @Override
-            protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model, int position) {
+            protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
+                                              int position) {
                 viewHolder.forumName.setText(model.getForumName());
                 if(model.getForumImageUrl() == null){
                     //TODO: placeholder image
-                    viewHolder.forumImage.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_account_circle_black_36dp));
+                    viewHolder.forumImage.setImageDrawable(ContextCompat.getDrawable(MainActivity.this,
+                            R.drawable.ic_account_circle_black_36dp));
                 }else{
                     Glide.with(MainActivity.this)
                             .load(model.getForumImageUrl())
