@@ -11,9 +11,23 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="chitchat.com.chitchat.MainActivity"
     tools:showIn="@layout/activity_main">
-
+   <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Some text goes here"
+        android:id="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"/>
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button" />
+
 </RelativeLayout>
