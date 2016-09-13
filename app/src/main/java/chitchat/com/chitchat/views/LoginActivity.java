@@ -9,6 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.internal.CallbackManagerImpl;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -45,9 +52,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private TwitterLoginButton twitterLoginButton;
+    private LoginButton facebookLoginBtn;
     private SignInButton googleSignInButton;
     private GoogleApiClient mGoogleApiClient;
-
+    private CallbackManager callbackManager;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +65,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Contract.TWITTER_SECRET);
 
         Fabric.with(LoginActivity.this, new Twitter(authConfig));
+        FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.loginactivity_layout);
 
+        // initialize CallbackManager
+        callbackManager = CallbackManager.Factory.create();
         initViews();
         initializeLogins();
 
@@ -86,6 +97,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void initViews() {
         twitterLoginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
         googleSignInButton = (SignInButton) findViewById(R.id.google_signin_button);
+        facebookLoginBtn = (LoginButton) findViewById(R.id.facebook_login_button);
         googleSignInButton.setOnClickListener(this);
     }
 
@@ -119,6 +131,29 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        /*initialize Login with Facebook*/
+        facebookLoginBtn.setReadPermissions("email", "public_profile");
+        facebookLoginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(LOGINACTIVITY,"FacebookLoginSuccess "+ loginResult);
+                //pass the token to handle with Firebase login
+
+
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(LOGINACTIVITY, "FacebookLoginCancel:");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(LOGINACTIVITY, "FacebookLoginFailure "+error);
+
+            }
+        });
     }
 
     @Override
@@ -141,6 +176,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
         // pass the activity result to the twitter button
         twitterLoginButton.onActivityResult(requestCode, resultCode, data);
+
+        //pass the request code, result and data to the callback manager to handle Facebook login
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

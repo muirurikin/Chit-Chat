@@ -6,11 +6,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
@@ -92,4 +94,37 @@ public class AuthLoginHandler {
         });
 
     }
+
+    /**handles FacebookLogin token
+     *
+     * @param token Token received when their is successful login
+     * @param auth Authenticator with Firebase
+     * @param context The context this method will be called*/
+    public static boolean handleFacebookLoginToken(AccessToken token, FirebaseAuth auth,
+                                                   final Context context){
+        final boolean[] isSucess = {false};
+        final String TAG = LoginActivity.LOGINACTIVITY;
+        Log.d(TAG, "FirebaseWithFacebook:"+ token);
+
+        // get the access token to get the credential and pass this to Firebase AUthCredential
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        auth.signInWithCredential(credential).addOnCompleteListener((Activity) context,
+                new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "SignInWithCredentialFacebook: " + task.isSuccessful());
+                /*if not successful, inform user on failure*/
+                if(!task.isSuccessful()){
+                    Log.w(TAG, "signInWithCredential:FacebookFailed: ", task.getException());
+                    Toast.makeText(context, "Authentication with Facebook failed.",
+                            Toast.LENGTH_SHORT).show();
+                    isSucess[0] = false;
+                }else{
+                    isSucess[0] = true;
+                }
+            }
+        });
+        return isSucess[0];
+    }
+/*END*/
 }
