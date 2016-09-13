@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }else{
                 //Google sign in failed
                 //TODO; Update user appropriately
-                Toast.makeText(this, "Google Sign in failes", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Google Sign in failed", Toast.LENGTH_SHORT).show();
             }
 
         }
