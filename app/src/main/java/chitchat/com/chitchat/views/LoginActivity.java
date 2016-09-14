@@ -2,7 +2,6 @@ package chitchat.com.chitchat.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +12,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -37,6 +35,7 @@ import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.presenter.AuthLoginHandler;
 import chitchat.com.chitchat.presenter.Contract;
 import chitchat.com.chitchat.presenter.LoginPresenter;
+import chitchat.com.chitchat.views.main.MainActivity;
 import io.fabric.sdk.android.Fabric;
 
 import static chitchat.com.chitchat.presenter.Contract.RC_SIGN_IN;

@@ -19,7 +19,7 @@ import com.google.firebase.auth.TwitterAuthProvider;
 import com.twitter.sdk.android.core.TwitterSession;
 
 import chitchat.com.chitchat.views.LoginActivity;
-import chitchat.com.chitchat.views.MainActivity;
+import chitchat.com.chitchat.views.main.MainActivity;
 
 /**
  * Project: Chit-Chat

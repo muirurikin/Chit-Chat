@@ -1,4 +1,4 @@
-package chitchat.com.chitchat.views;
+package chitchat.com.chitchat.views.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import chitchat.com.chitchat.presenter.adapters.RoomAdapter;
 import chitchat.com.chitchat.models.RoomModel;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView{
     private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
@@ -120,6 +120,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
     }
 
     /**

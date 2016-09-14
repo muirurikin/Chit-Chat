@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="chitchat.com.chitchat.views.MainActivity">
+    tools:context="chitchat.com.chitchat.views.main.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -24,9 +24,6 @@
         android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" >
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rooms_recycler_view_id"
@@ -34,15 +31,6 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/room_item"
                 android:clipToPadding="false" />
-
-            <ProgressBar
-                android:id="@+id/main_activity_progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-        </FrameLayout>
     </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>
