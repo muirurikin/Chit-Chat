@@ -47,6 +47,30 @@ public class MainActivity extends AppCompatActivity implements MainView{
         initFirebaseDatabase();
     }
 
+
+    @Override
+    public void showProgress() {
+
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mainPresenter.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mainPresenter.onDestroy();
+        super.onDestroy();
+    }
+
     /**Initialize the UI controls*/
     private void initViews(){
         mRecyclerView = (RecyclerView) findViewById(R.id.rooms_recycler_view_id);
@@ -128,15 +152,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void showProgress() {
 
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
 
     @Override
     public void showMessage(String msg) {
