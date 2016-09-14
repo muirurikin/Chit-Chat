@@ -2,6 +2,7 @@ package chitchat.com.chitchat.views.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import chitchat.com.chitchat.models.RoomModel;
 import chitchat.com.chitchat.presenter.mainpresenters.FindItemsInteractorImpl;
 import chitchat.com.chitchat.presenter.mainpresenters.MainPresenter;
 import chitchat.com.chitchat.presenter.mainpresenters.MainPresenterImpl;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements MainView{
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private RecyclerView mRecyclerView;
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
     private MainPresenter mainPresenter;
+    private SweetAlertDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +46,30 @@ public class MainActivity extends AppCompatActivity implements MainView{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mainPresenter = new MainPresenterImpl(this, new FindItemsInteractorImpl());
+        progressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         initViews();
         initFirebaseDatabase();
     }
 
 
     @Override
-    public void showProgress() {
-
+    public void setItems(List<RoomModel> roomModelList) {
 
     }
 
     @Override
-    public void hideProgress() {
+    public void showProgress() {
+        progressDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        progressDialog.setTitleText("Loading");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
 
+    @Override
+    public void hideProgress() {
+        if(progressDialog.isShowing()){
+            progressDialog.dismissWithAnimation();
+        }
     }
 
     @Override
@@ -159,35 +172,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     }
 
-    @Override
-    public void setItems(List<RoomModel> roomModelList) {
-
-    }
 
     @Override
     public void openForum() {
 
-    }
-
-    /**
-     * Task to refresh data from Firebase database
-     * */
-    private class FetchTask extends AsyncTask<Void, Void, String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            waveSwipeRefreshLayout.setRefreshing(false);
-        }
     }
 
     /**START THIS PARTICULAR ACTIVITY*/
