@@ -1,5 +1,9 @@
 package chitchat.com.chitchat.views.main;
 
+import java.util.List;
+
+import chitchat.com.chitchat.models.RoomModel;
+
 /**
  * Project: Chit-Chat
  * Package: chitchat.com.chitchat.views.main
@@ -14,4 +18,10 @@ public interface MainView {
 
     /**Hide the progress once loading is done*/
     void hideProgress();
+
+    void showMessage(String msg);
+
+    void setItems(List<RoomModel> roomModelList);
+
+    void openForum();
 }

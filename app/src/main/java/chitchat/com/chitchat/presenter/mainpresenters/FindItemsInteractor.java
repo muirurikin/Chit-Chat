@@ -2,6 +2,8 @@ package chitchat.com.chitchat.presenter.mainpresenters;
 
 import java.util.List;
 
+import chitchat.com.chitchat.models.RoomModel;
+
 /**
  * Project: Chit-Chat
  * Package: chitchat.com.chitchat.presenter.mainpresenters
@@ -12,8 +14,9 @@ import java.util.List;
 
 public interface FindItemsInteractor {
 
+    /**called when loading is done, sets the items to the RecyclerVIew*/
     interface OnFinishedListener{
-        void onFinished(List<String> items);
+        void onFinished(List<RoomModel> items);
     }
 
     void findItems(OnFinishedListener listener);
