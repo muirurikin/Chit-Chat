@@ -14,5 +14,6 @@ public class FindItemsInteractorImpl implements FindItemsInteractor {
 
     }
 
+
 /*END*/
 }
