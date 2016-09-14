@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 public class MainActivity extends AppCompatActivity implements MainView{
     private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DatabaseReference mDatabase;
+    private ListView roomList;
     private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView mRecyclerView;
@@ -46,14 +48,22 @@ public class MainActivity extends AppCompatActivity implements MainView{
         setSupportActionBar(toolbar);
         mainPresenter = new MainPresenterImpl(this, new FindItemsInteractorImpl());
         progressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+
         initViews();
         initFirebaseDatabase();
+    }
+    /**Initialize the UI controls*/
+    private void initViews(){
+        mRecyclerView = (RecyclerView) findViewById(R.id.rooms_recycler_view_id);
+        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)findViewById(R.id.rooms_waveswiperefresh_layout_id);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager.setStackFromEnd(true);
     }
 
 
     @Override
     public void setItems(List<RoomModel> roomModelList) {
-
+        mRecyclerView.setAdapter(new RoomAdapter(this, roomModelList,R.layout.room_item));
     }
 
     @Override
@@ -83,30 +93,11 @@ public class MainActivity extends AppCompatActivity implements MainView{
         super.onDestroy();
     }
 
-    /**Initialize the UI controls*/
-    private void initViews(){
-        mRecyclerView = (RecyclerView) findViewById(R.id.rooms_recycler_view_id);
-        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)findViewById(R.id.rooms_waveswiperefresh_layout_id);
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        mLinearLayoutManager.setStackFromEnd(true);
-    }
 
     /**Initialize the Firebase database*/
     private void initFirebaseDatabase() {
         // initialize the Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        /*mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String roomNode = dataSnapshot.getValue(String.class);
-                Log.d(MAINACTIVITY_TAG, "Value: "+ roomNode);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(MAINACTIVITY_TAG, "Failed to read value " + databaseError.toException());
-            }
-        });*/
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder>(
                 RoomModel.class,
                 R.layout.room_item,
@@ -151,12 +142,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
