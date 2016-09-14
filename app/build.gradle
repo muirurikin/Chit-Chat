@@ -87,6 +87,9 @@ dependencies {
         transitive = true;
     }
 
+    /*Sweet Alert dialogs*/
+    compile 'cn.pedant.sweetalert:library:1.3'
+
     /*FACEBOOK LOGIN*/
     facebookCompile 'com.facebook.android:facebook-android-sdk:4.9.0'
 

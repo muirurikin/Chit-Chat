@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     public void hideProgress() {
 
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
