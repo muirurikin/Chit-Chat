@@ -20,6 +20,7 @@ import chitchat.com.chitchat.presenter.Contract;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.presenter.adapters.RoomAdapter;
 import chitchat.com.chitchat.models.RoomModel;
+import chitchat.com.chitchat.presenter.mainpresenters.MainPresenter;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements MainView{
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView mRecyclerView;
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
+    private MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
