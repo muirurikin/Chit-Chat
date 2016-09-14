@@ -105,7 +105,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
 
         /*binds the item views to the model class*/
         public void bind(RoomModel roomModel){
-            forumName.setText(roomModel.getRoom_name());
+            forumName.setText(roomModel.getRooms());
             unreadMessages.setText(roomModel.getUnreadPosts());
             if(roomModel.getImg_url() == null){
                 forumImage.setImageDrawable(ContextCompat.getDrawable(context,

@@ -14,8 +14,11 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -98,6 +101,18 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private void initFirebaseDatabase() {
         // initialize the Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.child(Contract.ROOMSNODE).getChildren();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder>(
                 RoomModel.class,
                 R.layout.room_item,
@@ -108,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
                 Log.d(MAINACTIVITY_TAG,
-                        "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
+                        "Image URL: " + model.getImg_url() + "Name: "+ model.getRooms()+
                                 "Unreads: " + model.getUnreadPosts());
                 viewHolder.bind(model);
             }
