@@ -16,11 +16,15 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 import chitchat.com.chitchat.presenter.Contract;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.presenter.adapters.RoomAdapter;
 import chitchat.com.chitchat.models.RoomModel;
+import chitchat.com.chitchat.presenter.mainpresenters.FindItemsInteractorImpl;
 import chitchat.com.chitchat.presenter.mainpresenters.MainPresenter;
+import chitchat.com.chitchat.presenter.mainpresenters.MainPresenterImpl;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements MainView{
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mainPresenter = new MainPresenterImpl(this, new FindItemsInteractorImpl());
         initViews();
         initFirebaseDatabase();
     }
@@ -131,6 +135,21 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public void hideProgress() {
+
+    }
+
+    @Override
+    public void showMessage(String msg) {
+
+    }
+
+    @Override
+    public void setItems(List<RoomModel> roomModelList) {
+
+    }
+
+    @Override
+    public void openForum() {
 
     }
 
