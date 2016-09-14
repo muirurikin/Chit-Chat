@@ -87,7 +87,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         RoomModel roomModel =  roomModelList.get(position);
         holder.itemView.setTag(roomModel);
-        holder.bind(roomModel, context);
+        holder.bind(roomModel);
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
@@ -104,7 +104,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
         }
 
         /*binds the item views to the model class*/
-        public void bind(RoomModel roomModel, Context context){
+        public void bind(RoomModel roomModel){
             forumName.setText(roomModel.getRoom_name());
             unreadMessages.setText(roomModel.getUnreadPosts());
             if(roomModel.getImg_url() == null){

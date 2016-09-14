@@ -3,7 +3,6 @@ package chitchat.com.chitchat.views.main;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 Log.d(MAINACTIVITY_TAG,
                         "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
                                 "Unreads: " + model.getUnreadPosts());
-                viewHolder.bind(model, MainActivity.this);
+                viewHolder.bind(model);
             }
         };
 
