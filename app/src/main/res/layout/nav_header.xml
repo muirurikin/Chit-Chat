@@ -9,7 +9,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <android.support.v4.widget.CircleImageView
-        android:id="@+id/username_nav_img"
+        android:id="@+id/userimg_nav_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="start"
