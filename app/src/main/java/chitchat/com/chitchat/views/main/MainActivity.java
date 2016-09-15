@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,7 @@ import chitchat.com.chitchat.models.RoomModel;
 import chitchat.com.chitchat.presenter.mainpresenters.FindItemsInteractorImpl;
 import chitchat.com.chitchat.presenter.mainpresenters.MainPresenter;
 import chitchat.com.chitchat.presenter.mainpresenters.MainPresenterImpl;
+import chitchat.com.chitchat.utils.ActivityUtils;
 import chitchat.com.chitchat.views.rooms.RoomsFragment;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
@@ -210,11 +213,17 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Open the navigation drawer when the home icon is selected from the toolbar.
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
 
+            case R.id.action_settings:
+                //TODO: open settings
+                return true;
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
