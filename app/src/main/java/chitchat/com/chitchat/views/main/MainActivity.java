@@ -94,6 +94,13 @@ public class MainActivity extends AppCompatActivity{
                             case R.id.profile_menu_item:
                                 //open profile screen
                                 break;
+                            case R.id.people_menu_item:
+                                //open people screen
+                                break;
+
+                            case R.id.settings_menu_item:
+                                //open settings screen
+                                break;
                             case R.id.sign_out_menu_item:
                                 //sign out the user with firebase
                                 FirebaseAuth.getInstance().signOut();
