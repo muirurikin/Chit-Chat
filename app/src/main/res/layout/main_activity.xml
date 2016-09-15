@@ -35,6 +35,7 @@
                 android:layout_height="match_parent" />
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/mainact_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/FAB"
@@ -45,6 +46,7 @@
                 app:pressedTranslationZ="12dp"
                 android:layout_gravity="bottom|end"
             app:layout_anchor="@id/mainactivity_contentFrame"
+            app:useCompatPadding="true"
             app:rippleColor="@android:color/white"               app:layout_anchorGravity="bottom|right|end"
                 />
         </android.support.design.widget.CoordinatorLayout>
@@ -58,6 +60,6 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header"
-            app:menu="@menu/menu_main" />
+            app:menu="@menu/drawer_actions" />
 
 </android.support.v4.widget.DrawerLayout>

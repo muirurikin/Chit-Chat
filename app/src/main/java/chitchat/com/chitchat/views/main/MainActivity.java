@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.firebase.auth.FirebaseAuth;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.utils.ActivityUtils;
 import chitchat.com.chitchat.views.rooms.RoomsFragment;
@@ -19,12 +22,14 @@ import chitchat.com.chitchat.views.rooms.RoomsFragment;
 public class MainActivity extends AppCompatActivity{
     private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.mainact_fab);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -61,6 +66,7 @@ public class MainActivity extends AppCompatActivity{
                                 break;
                             case R.id.sign_out_menu_item:
                                 //sign out the user with firebase
+                                FirebaseAuth.getInstance().signOut();
                                 break;
                             default:
                                 break;
