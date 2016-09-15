@@ -6,46 +6,54 @@
     android:layout_width="match_parent"
     android:contentDescription="@null"
     app:cardUseCompatPadding="true"
-    app:contentPadding="5dp"
     android:layout_height="wrap_content" >
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:weightSum="3"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/forum_item_img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:maxHeight="40dp"
-        android:maxWidth="40dp"
-        android:src="@drawable/ic_account_circle_black_36dp"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/forum_item_name"
-        app:layout_constraintBottom_toBottomOf="@+id/forum_item_name" />
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:contentDescription="@null"
+        android:src="@drawable/blue_button_background"
+        tools:layout_editor_absoluteX="156dp" />
+
+        <LinearLayout
+            android:id="@+id/forum_item_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_below="@id/forum_item_img">
+
+            <TextView
+                android:text="@string/forum_name"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/forum_item_name"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/forum_item_members"
+                android:text="@string/forum_members"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <TextView
-            android:text="@string/forum_name"
+            android:id="@+id/forum_item_ismember"
+            android:text="@string/forum_ismember"
             android:textSize="20sp"
-            android:layout_width="241dp"
-            android:layout_height="36dp"
-            android:id="@+id/forum_item_name"
-            tools:layout_constraintTop_creator="1"
-            tools:layout_constraintBottom_creator="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8"
-            app:layout_constraintLeft_toRightOf="@+id/forum_item_img"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="16dp"
-            app:layout_constraintHorizontal_bias="0.2" />
+            android:layout_below="@+id/forum_item_container"
+            android:padding="10dp"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:textColor="@color/blue_waves"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.CardView>
+</android.support.v7.widget.CardView>

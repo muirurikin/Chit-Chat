@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -94,6 +95,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RoomModel roomModel = dataSnapshot.getValue(RoomModel.class);
+
                 roomModel = new RoomModel(roomModel.getRoom_name(), roomModel.getImg_url());
                 roomModelList = new ArrayList<>();
                 roomModelList.add(roomModel);
@@ -113,9 +115,9 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             @Override
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
-                Log.d(ROOMSFRAGMENTTAG, "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name());
+                Log.d(ROOMSFRAGMENTTAG, "Image URL: " + model.getImg_url() + " Name: "+ model.getRoom_name());
                 viewHolder.roomName.setText(model.getRoom_name());
-                if (model.getImg_url() == null) {
+                if (model.getImg_url() == null || model.getImg_url().isEmpty()) {
                     viewHolder.roomImage.setImageDrawable(
                             ContextCompat.getDrawable(getActivity(),
                                     R.mipmap.ic_launcher));
