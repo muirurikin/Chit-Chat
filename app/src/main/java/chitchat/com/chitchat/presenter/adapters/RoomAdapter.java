@@ -1,15 +1,12 @@
 package chitchat.com.chitchat.presenter.adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -91,28 +88,18 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
-        private CircleImageView forumImage;
-        private TextView forumName;
-        private Context context;
+        public CircleImageView roomImage;
+        public TextView roomName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            forumName = (TextView)itemView.findViewById(R.id.forum_item_name);
-            forumImage = (CircleImageView)itemView.findViewById(R.id.forum_item_img);
+            roomName = (TextView)itemView.findViewById(R.id.forum_item_name);
+            roomImage = (CircleImageView)itemView.findViewById(R.id.forum_item_img);
         }
 
         /*binds the item views to the model class*/
         public void bind(RoomModel roomModel){
-            forumName.setText(roomModel.getRoom_name());
-            if(roomModel.getImg_url() == null){
-                forumImage.setImageDrawable(ContextCompat.getDrawable(context,
-                        R.drawable.ic_account_circle_black_36dp));
-            }else{
-                Glide.with(context)
-                        .load(roomModel.getImg_url())
-                        .into(forumImage);
-            }
-
+            roomName.setText(roomModel.getRoom_name());
         }
     }
 

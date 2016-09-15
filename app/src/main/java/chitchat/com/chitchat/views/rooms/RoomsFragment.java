@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -84,13 +86,12 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     /**Initialize the Firebase database*/
     private void initFirebaseDatabase() {
         // initialize the Database
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(Contract.ROOMSNODE);
+
         mDatabase.child(Contract.ROOMSNODE).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String room = (String) dataSnapshot.child("room_name").getValue();
-                Log.d(ROOMSFRAGMENTTAG+"room_name", room);
-                Log.d(ROOMSFRAGMENTTAG+"RoomNodeChildren", dataSnapshot.getChildren().toString());
+                Log.d(ROOMSFRAGMENTTAG+"RoomNodeChildren", dataSnapshot.getValue().toString());
             }
 
             @Override
@@ -110,7 +111,15 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                 Log.d(ROOMSFRAGMENTTAG,
                         "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
                                 "Unreads: ");
-                viewHolder.bind(model);
+                viewHolder.roomName.setText(model.getRoom_name());
+                                /*if user has no photo, set a placeholder image*/
+                if (model.getImg_url() == null) {
+                    viewHolder.roomImage.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.ic_account_circle_black_36dp));
+                } else {
+                    Glide.with(getActivity())
+                            .load(model.getImg_url())
+                            .into(viewHolder.roomImage);
+                }
             }
         };
 
