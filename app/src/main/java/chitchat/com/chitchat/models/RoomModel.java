@@ -9,17 +9,15 @@ import java.util.HashMap;
 
 public class RoomModel {
     private String room_name, img_url, members;
-    private HashMap<String,Boolean> memberNode;
 
     /**Empty constructor*/
     public RoomModel(){}
 
     /**Constructor that takes in the parameters to pass to the Adapter*/
-    public RoomModel(String room_name,String img_url, HashMap<String, Boolean> memberNode, String members) {
+    public RoomModel(String room_name,String img_url, String members) {
         this.room_name = room_name;
         this.img_url = img_url;
         this.members = members;
-        this.memberNode=memberNode;
     }
 
     public String getRoom_name() {
@@ -46,11 +44,4 @@ public class RoomModel {
         this.members = members;
     }
 
-    public HashMap<String, Boolean> getMemberNode() {
-        return memberNode;
-    }
-
-    public void setMemberNode(HashMap<String, Boolean> memberNode) {
-        this.memberNode = memberNode;
-    }
 }

@@ -96,14 +96,13 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RoomModel roomModel = dataSnapshot.getValue(RoomModel.class);
-                long memberCount = dataSnapshot.child("members").getChildrenCount();
+                long memberCount = dataSnapshot.child(Contract.ROOMSNODE).child("members").getChildrenCount();
 
                 Log.d(ROOMSFRAGMENTTAG+"MEMBERNODE",dataSnapshot.child("members").toString());
                 Log.d(ROOMSFRAGMENTTAG+"MEMBERSCount",String.valueOf(memberCount));
 
                 roomModel = new RoomModel(roomModel.getRoom_name(),
                         roomModel.getImg_url(),
-                        roomModel.getMemberNode(),
                         roomModel.getMembers());
 
                 roomModelList = new ArrayList<>();
@@ -127,7 +126,6 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                 Log.d(ROOMSFRAGMENTTAG, "Image URL: " + model.getImg_url() + " Name: "+ model.getRoom_name()+ " members: " + model.getMembers());
 
                 viewHolder.roomName.setText(model.getRoom_name());
-                viewHolder.roomMembers.setText(model.getMembers());
                 if (model.getImg_url() == null || model.getImg_url().isEmpty()) {
                     viewHolder.roomImage.setImageDrawable(
                             ContextCompat.getDrawable(getActivity(),
