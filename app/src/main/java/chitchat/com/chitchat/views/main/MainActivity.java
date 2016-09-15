@@ -41,38 +41,6 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.mainact_fab);
 
-        userEmail = (TextView)findViewById(R.id.useremail_nav_id);
-        username = (TextView)findViewById(R.id.username_nav_id);
-        userImage = (ImageView)findViewById(R.id.userimg_nav_img);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-
-                    //User is signed in, get credentials and set them to UI views
-                    String userData = user.getDisplayName() + " "+ user.getEmail()+ " "+ user.getUid() + " " + user.getPhotoUrl();
-                    Log.d(MAINACTIVITY_TAG, "AuthStateChanged:SignedIn" +userData);
-
-                    userEmail.setText((user.getEmail() != null) ? user.getEmail(): "");
-                    username.setText(user.getDisplayName());
-
-                    // if photo url is not null, load it into the Image with Glide
-                    if(user.getPhotoUrl() != null){
-                        Glide.with(MainActivity.this)
-                                .load(user.getPhotoUrl())
-                                .into(userImage);
-                    }else{
-                        userImage.setImageDrawable(
-                                ContextCompat.getDrawable(MainActivity.this,
-                                R.drawable.ic_profile));
-                    }
-                }
-            }
-        };
-
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -86,7 +54,38 @@ public class MainActivity extends AppCompatActivity{
         NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_view);
         if(navigationView != null){
             setUpDrawerContents(navigationView);
+            userImage = (ImageView)navigationView.findViewById(R.id.userimg_nav_img);
+            userEmail = (TextView)navigationView.findViewById(R.id.useremail_nav_id);
+            username = (TextView)navigationView.findViewById(R.id.username_nav_id);
         }
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+
+                    //User is signed in, get credentials and set them to UI views
+                    String userData = user.getDisplayName() + " "+ user.getEmail()+ " "+ user.getUid() + " " + user.getPhotoUrl();
+                    Log.d(MAINACTIVITY_TAG, "AuthStateChanged:SignedIn" +userData);
+/*                    userEmail.setText((user.getEmail() != null) ? user.getEmail() : " ");
+                    username.setText(user.getDisplayName());
+
+                    // if photo url is not null, load it into the Image with Glide
+                    if(user.getPhotoUrl() != null){
+                        Glide.with(MainActivity.this)
+                                .load(user.getPhotoUrl())
+                                .into(userImage);
+                    }else{
+                        userImage.setImageDrawable(
+                                ContextCompat.getDrawable(MainActivity.this,
+                                        R.drawable.ic_profile));
+                    }*/
+                }
+            }
+        };
+
 
         //create the fragment
         RoomsFragment roomsFragment = (RoomsFragment) getSupportFragmentManager().findFragmentById(R.id.mainactivity_contentFrame);
