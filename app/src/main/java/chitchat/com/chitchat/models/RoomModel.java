@@ -9,7 +9,8 @@ import java.util.HashMap;
 
 public class RoomModel {
     private String room_name, img_url;
-    private long members;
+    private HashMap<String, Boolean> members;
+
     /**Empty constructor*/
     public RoomModel(){}
 
@@ -33,14 +34,6 @@ public class RoomModel {
 
     public void setImg_url(String img_url) {
         this.img_url = img_url;
-    }
-
-    public long getMembers() {
-        return members;
-    }
-
-    public void setMembers(long members) {
-        this.members = members;
     }
 
 }

@@ -117,7 +117,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
         /*binds the item views to the model class*/
         public void bind(RoomModel roomModel){
             roomName.setText(roomModel.getRoom_name());
-            roomMembers.setText(String.valueOf(roomModel.getMembers()));
         }
     }
 

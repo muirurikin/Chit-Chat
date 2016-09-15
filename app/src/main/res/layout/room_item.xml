@@ -56,11 +56,11 @@
         <Button
             android:id="@+id/forum_item_ismember"
             android:text="@string/forum_ismember"
-            android:textSize="20sp"
             android:background="@color/white"
             android:layout_below="@+id/forum_item_container"
             android:padding="10dp"
             android:clickable="true"
+            android:gravity="bottom"
             android:layout_width="wrap_content"
             android:textColor="@color/blue_waves"
             android:layout_height="wrap_content" />
