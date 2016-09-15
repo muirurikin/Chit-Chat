@@ -1,7 +1,9 @@
 package chitchat.com.chitchat.views.rooms;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +28,8 @@ import chitchat.com.chitchat.presenter.adapters.RoomAdapter;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Project: Chit-Chat
  * Package: chitchat.com.chitchat.views
@@ -42,6 +46,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     private SweetAlertDialog progressDialog;
     private DatabaseReference mDatabase;
     private List<RoomModel> roomModelList;
+    private RoomsContract.Presenter roomsPresenter;
 
     /*required public empty constructor*/
     public RoomsFragment(){}
@@ -53,7 +58,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecyclerView.setAdapter(new RoomAdapter(getActivity(), roomModelList, R.layout.room_item));
+        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
     @Nullable
@@ -66,8 +71,14 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setStackFromEnd(true);
         initFirebaseDatabase();
-
         return rootView;
+    }
+
+    // TODO: OVERRIDE?
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //roomsPresenter.result(requestCode,resultCode);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**Initialize the Firebase database*/
@@ -149,7 +160,8 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     }
 
     @Override
-    public void setPresenter(RoomsContract.Presenter presenter) {
-
+    public void setPresenter(@NonNull RoomsContract.Presenter presenter) {
+        roomsPresenter = checkNotNull(presenter);
     }
+
 }
