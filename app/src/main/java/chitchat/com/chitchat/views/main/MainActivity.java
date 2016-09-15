@@ -40,17 +40,11 @@ import chitchat.com.chitchat.views.rooms.RoomsFragment;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends AppCompatActivity{
     private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DatabaseReference mDatabase;
-    private ListView roomList;
     private DrawerLayout mDrawerLayout;
-    private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
-    private LinearLayoutManager mLinearLayoutManager;
-    private RecyclerView mRecyclerView;
-    private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
     private MainPresenter mainPresenter;
-    private SweetAlertDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +76,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), roomsFragment, R.id.mainactivity_contentFrame);
         }
-        initViews();
-        initFirebaseDatabase();
     }
 
     /**Sets up the contents of the DrawerLayout*/
@@ -111,35 +103,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         );
     }
 
-    /**Initialize the UI controls*/
-    private void initViews(){
-        mRecyclerView = (RecyclerView) findViewById(R.id.rooms_recycler_view_id);
-        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)findViewById(R.id.rooms_waveswiperefresh_layout_id);
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        mLinearLayoutManager.setStackFromEnd(true);
-    }
-
-
-    @Override
-    public void setItems(List<RoomModel> roomModelList) {
-        mRecyclerView.setAdapter(new RoomAdapter(this, roomModelList,R.layout.room_item));
-    }
-
-    @Override
-    public void showProgress() {
-        progressDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        progressDialog.setTitleText("Loading");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
-
-    @Override
-    public void hideProgress() {
-        if(progressDialog.isShowing()){
-            progressDialog.dismissWithAnimation();
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -151,59 +114,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         mainPresenter.onDestroy();
         super.onDestroy();
     }
-
-
-    /**Initialize the Firebase database*/
-    private void initFirebaseDatabase() {
-        // initialize the Database
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataSnapshot.child(Contract.ROOMSNODE).getChildren();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder>(
-                RoomModel.class,
-                R.layout.room_item,
-                RoomAdapter.ViewHolder.class,
-                mDatabase.child(Contract.ROOMSNODE).child(Contract.ROOMNAME)
-        ) {
-            @Override
-            protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
-                                              int position) {
-                Log.d(MAINACTIVITY_TAG,
-                        "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
-                                "Unreads: ");
-                viewHolder.bind(model);
-            }
-        };
-
-        firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                super.onItemRangeInserted(positionStart, itemCount);
-                int forumsCount = firebaseRecyclerAdapter.getItemCount();
-                int lastVisibleForum = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-                // If the recycler view is initially being loaded or the user is at the bottom of the list, scroll to the bottom of the list to show the newly added message.
-                if (lastVisibleForum == -1 ||
-                        (positionStart >= (forumsCount - 1) && lastVisibleForum == (positionStart - 1))) {
-                    mRecyclerView.scrollToPosition(positionStart);
-                }
-            }
-        });
-
-        // Set the layout manager and adapter
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -227,18 +137,6 @@ public class MainActivity extends AppCompatActivity implements MainView{
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    @Override
-    public void showMessage(String msg) {
-
-    }
-
-
-    @Override
-    public void openForum() {
-
-    }
 
     /**START THIS PARTICULAR ACTIVITY*/
     public static void start(Context c) {
