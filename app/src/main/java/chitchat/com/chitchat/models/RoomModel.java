@@ -6,15 +6,16 @@ package chitchat.com.chitchat.models;
  * */
 
 public class RoomModel {
-    private String room_name, img_url;
+    private String room_name, img_url, members;
 
     /**Empty constructor*/
     public RoomModel(){}
 
     /**Constructor that takes in the parameters to pass to the Adapter*/
-    public RoomModel(String room_name,String img_url) {
+    public RoomModel(String room_name,String img_url, String members) {
         this.room_name = room_name;
         this.img_url = img_url;
+        this.members = members;
     }
 
     public String getRoom_name() {
@@ -31,5 +32,13 @@ public class RoomModel {
 
     public void setImg_url(String img_url) {
         this.img_url = img_url;
+    }
+
+    public String getMembers() {
+        return members;
+    }
+
+    public void setMembers(String members) {
+        this.members = members;
     }
 }

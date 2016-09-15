@@ -44,10 +44,11 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <TextView
+        <Button
             android:id="@+id/forum_item_ismember"
             android:text="@string/forum_ismember"
             android:textSize="20sp"
+            android:background="@color/white"
             android:layout_below="@+id/forum_item_container"
             android:padding="10dp"
             android:clickable="true"

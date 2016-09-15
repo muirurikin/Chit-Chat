@@ -1,11 +1,14 @@
 package chitchat.com.chitchat.presenter.adapters;
 
 import android.content.Context;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -100,13 +103,16 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
-        public CircleImageView roomImage;
-        public TextView roomName;
+        public ImageView roomImage;
+        public TextView roomName,roomMembers;
+        public Button isMember;
 
         public ViewHolder(View itemView) {
             super(itemView);
             roomName = (TextView)itemView.findViewById(R.id.forum_item_name);
-            roomImage = (CircleImageView)itemView.findViewById(R.id.forum_item_img);
+            roomImage = (ImageView)itemView.findViewById(R.id.forum_item_img);
+            isMember = (Button)itemView.findViewById(R.id.forum_item_ismember);
+            roomMembers = (TextView)itemView.findViewById(R.id.forum_item_members);
         }
 
         /*binds the item views to the model class*/
