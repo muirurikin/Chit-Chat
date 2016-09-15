@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.home_menu_item:
-                                // Do nothing, we're already on that screen
+                            case R.id.profile_menu_item:
+                                //open profile screen
                                 break;
                             case R.id.sign_out_menu_item:
                                 //sign out the user with firebase
