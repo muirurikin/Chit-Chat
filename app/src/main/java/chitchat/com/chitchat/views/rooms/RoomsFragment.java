@@ -19,12 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
-
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.RoomModel;
 import chitchat.com.chitchat.presenter.Contract;
 import chitchat.com.chitchat.presenter.adapters.RoomAdapter;
-import chitchat.com.chitchat.views.main.MainView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
@@ -32,24 +30,30 @@ import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
  * Project: Chit-Chat
  * Package: chitchat.com.chitchat.views
  * Created by lusinabrian on 15/09/16 at 12:37
- * <p>
- * Description: Fragment holds the views of the rooms the user can see. Has the recyclerview
+ * Display a grid of {@link RoomModel}s.
  */
 
-public class RoomsFragment extends Fragment implements MainView {
+public class RoomsFragment extends Fragment implements RoomsContract.View {
     private static final String ROOMSFRAGMENTTAG = RoomsFragment.class.getSimpleName();
-
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
     private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView mRecyclerView;
     private SweetAlertDialog progressDialog;
     private DatabaseReference mDatabase;
+    private List<RoomModel> roomModelList;
 
+    /*required public empty constructor*/
     public RoomsFragment(){}
 
     public static RoomsFragment newInstance(){
         return new RoomsFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mRecyclerView.setAdapter(new RoomAdapter(getActivity(), roomModelList, R.layout.room_item));
     }
 
     @Nullable
@@ -119,34 +123,33 @@ public class RoomsFragment extends Fragment implements MainView {
 
 
     @Override
-    public void setItems(List<RoomModel> roomModelList) {
-        mRecyclerView.setAdapter(new RoomAdapter(getActivity(), roomModelList,R.layout.room_item));
-    }
-
-    @Override
-    public void openForum() {
+    public void showRooms(List<RoomModel> roomList) {
 
     }
 
-
     @Override
-    public void showProgress() {
+    public void setLoadingIndicator(boolean active) {
         progressDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         progressDialog.setTitleText("Loading");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
     }
 
     @Override
-    public void hideProgress() {
+    public void cancelLoadingIndicator(boolean notActive){
         if(progressDialog.isShowing()){
             progressDialog.dismissWithAnimation();
         }
     }
 
     @Override
-    public void showMessage(String msg) {
+    public void showLoadingRoomsError() {
 
     }
 
+    @Override
+    public void setPresenter(RoomsContract.Presenter presenter) {
+
+    }
 }
