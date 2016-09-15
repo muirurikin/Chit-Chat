@@ -46,7 +46,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
     private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
     private RoomAdapter roomAdapter;
-    private LinearLayoutManager mLinearLayoutManager;
+    private GridLayoutManager mGridLayoutManager;
     private RecyclerView mRecyclerView;
     private SweetAlertDialog progressDialog;
     private DatabaseReference mDatabase;
@@ -74,7 +74,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rooms_recycler_view_id);
         waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)rootView.findViewById(R.id.rooms_waveswiperefresh_layout_id);
 
-        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         initFirebaseDatabase();
         return rootView;
     }
@@ -147,7 +147,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
         });*/
 
         // Set the layout manager and adapter
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
