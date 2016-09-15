@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
     private TextView username, userEmail;
     private FloatingActionButton floatingActionButton;
     private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +46,27 @@ public class MainActivity extends AppCompatActivity{
         userEmail = (TextView)findViewById(R.id.useremail_nav_id);
         username = (TextView)findViewById(R.id.username_nav_id);
         userImage = (ImageView)findViewById(R.id.userimg_nav_img);
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if(user != null){
-            //User is signed in, get credentials
-            String userData = user.getDisplayName() + " "+ user.getEmail()+ " "+ user.getUid() + " " + user.getPhotoUrl();
-            userEmail.setText(user.getEmail());
-            username.setText(user.getDisplayName());
-            if(user.getPhotoUrl() != null){
-                Glide.with(this).load(user.getPhotoUrl()).into(userImage);
-            }else{
-                userImage.setImageDrawable(ContextCompat.getDrawable(this,
-                        R.drawable.ic_account_circle_black_36dp));
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    //User is signed in, get credentials
+                    String userData = user.getDisplayName() + " "+ user.getEmail()+ " "+ user.getUid() + " " + user.getPhotoUrl();
+                    userEmail.setText(user.getEmail());
+                    username.setText(user.getDisplayName());
+                    if(user.getPhotoUrl() != null){
+                        Glide.with(MainActivity.this).load(user.getPhotoUrl()).into(userImage);
+                    }else{
+                        userImage.setImageDrawable(ContextCompat.getDrawable(MainActivity.this,
+                                R.drawable.ic_profile));
+                    }
+                    Log.d(MAINACTIVITY_TAG, "AuthStateChanged:SignedIn" +userData);
+                }
             }
-            Log.d(MAINACTIVITY_TAG, "AuthStateChanged:SignedIn" +userData);
-        }
+        };
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -156,4 +164,19 @@ public class MainActivity extends AppCompatActivity{
     public static void start(Context c) {
         c.startActivity(new Intent(c, MainActivity.class));
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authStateListener != null) {
+            firebaseAuth.removeAuthStateListener(authStateListener);
+        }
+    }
+
 }
