@@ -74,7 +74,6 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
         waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)rootView.findViewById(R.id.rooms_waveswiperefresh_layout_id);
 
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mLinearLayoutManager.setStackFromEnd(true);
         initFirebaseDatabase();
         return rootView;
     }
