@@ -1,7 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="192dp"
-    android:background="?attr/colorPrimaryDark"
+    android:layout_height="180dp"
+    android:background="@color/background2"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
@@ -9,16 +10,32 @@
 
     <android.support.v4.widget.CircleImageView
         android:id="@+id/username_nav_img"
-        android:layout_width="300dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_gravity="start"
         android:src="@drawable/ic_account_circle_black_36dp" />
-
-    <TextView
-        android:id="@+id/username_nav_id"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:layout_gravity="start|bottom">
+    <TextView
+        android:id="@+id/username_nav_id"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
+    <TextView
+        android:id="@+id/useremail_nav_id"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/useremail"
+        android:layout_gravity="start|bottom"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    </LinearLayout>
 </FrameLayout>
