@@ -17,11 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.utils.ActivityUtils;
 import chitchat.com.chitchat.views.LoginActivity;
@@ -53,17 +51,24 @@ public class MainActivity extends AppCompatActivity{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
-                    //User is signed in, get credentials
+
+                    //User is signed in, get credentials and set them to UI views
                     String userData = user.getDisplayName() + " "+ user.getEmail()+ " "+ user.getUid() + " " + user.getPhotoUrl();
-                    userEmail.setText(user.getEmail());
+                    Log.d(MAINACTIVITY_TAG, "AuthStateChanged:SignedIn" +userData);
+
+                    userEmail.setText((user.getEmail() != null) ? user.getEmail(): "");
                     username.setText(user.getDisplayName());
+
+                    // if photo url is not null, load it into the Image with Glide
                     if(user.getPhotoUrl() != null){
-                        Glide.with(MainActivity.this).load(user.getPhotoUrl()).into(userImage);
+                        Glide.with(MainActivity.this)
+                                .load(user.getPhotoUrl())
+                                .into(userImage);
                     }else{
-                        userImage.setImageDrawable(ContextCompat.getDrawable(MainActivity.this,
+                        userImage.setImageDrawable(
+                                ContextCompat.getDrawable(MainActivity.this,
                                 R.drawable.ic_profile));
                     }
-                    Log.d(MAINACTIVITY_TAG, "AuthStateChanged:SignedIn" +userData);
                 }
             }
         };
