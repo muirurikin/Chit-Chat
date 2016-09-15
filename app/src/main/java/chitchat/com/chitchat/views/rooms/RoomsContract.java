@@ -1,5 +1,7 @@
 package chitchat.com.chitchat.views.rooms;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import chitchat.com.chitchat.BasePresenter;
@@ -27,6 +29,13 @@ public class RoomsContract {
     }
 
     interface Presenter extends BasePresenter{
+        void result(int requestCode, int resultCode);
+
+        void loadRooms(boolean forceUpdate);
+
+        void addNewTask();
+
+        void openRoomChats(@NonNull RoomModel requestedTask);
 
     }
 }
