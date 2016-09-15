@@ -98,8 +98,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                 RoomModel roomModel = dataSnapshot.getValue(RoomModel.class);
                 long memberCount = dataSnapshot.child(Contract.ROOMSNODE).child("members").getChildrenCount();
 
-                Log.d(ROOMSFRAGMENTTAG+"MEMBERNODE",dataSnapshot.child("members").toString());
-                Log.d(ROOMSFRAGMENTTAG+"MEMBERSCount",String.valueOf(memberCount));
+                Log.d(ROOMSFRAGMENTTAG+"MEMBERS COUNT",String.valueOf(memberCount));
 
                 roomModel = new RoomModel(roomModel.getRoom_name(),
                         roomModel.getImg_url(),
