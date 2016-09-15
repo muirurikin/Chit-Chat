@@ -85,11 +85,12 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     private void initFirebaseDatabase() {
         // initialize the Database
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mDatabase.child(Contract.ROOMSNODE).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                dataSnapshot.child(Contract.ROOMSNODE).getChildren();
-
+                String room = (String) dataSnapshot.child("room_name").getValue();
+                Log.d(ROOMSFRAGMENTTAG+"room_name", room);
+                Log.d(ROOMSFRAGMENTTAG+"RoomNodeChildren", dataSnapshot.getChildren().toString());
             }
 
             @Override
