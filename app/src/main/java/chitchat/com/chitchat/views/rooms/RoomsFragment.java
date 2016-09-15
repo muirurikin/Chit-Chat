@@ -97,8 +97,8 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RoomModel roomModel = dataSnapshot.getValue(RoomModel.class);
 
-                boolean member = dataSnapshot.child("members").exists();
-                Log.d(ROOMSFRAGMENTTAG+" MEMBER NODE exits? ",String.valueOf(member));
+                boolean member = dataSnapshot.hasChild("members");
+                Log.d(ROOMSFRAGMENTTAG+" MEMBER NODE exists? ",String.valueOf(member));
 
                 roomModel = new RoomModel(roomModel.getRoom_name(),
                         roomModel.getImg_url());
