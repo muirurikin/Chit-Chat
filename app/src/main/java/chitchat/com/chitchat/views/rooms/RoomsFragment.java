@@ -99,7 +99,6 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                 roomModelList = new ArrayList<>();
                 roomModelList.add(roomModel);
                 roomAdapter = new RoomAdapter(getActivity(),roomModelList,R.layout.room_item);
-                Log.d(ROOMSFRAGMENTTAG+"RoomNodeChildren", roomModelList.toString());
             }
 
             @Override
@@ -119,7 +118,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                         "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
                                 "Unreads: ");
                 viewHolder.roomName.setText(model.getRoom_name());
-                                /*if user has no photo, set a placeholder image*/
+                /*if room has no photo, set a placeholder image*/
                 if (model.getImg_url() == null) {
                     viewHolder.roomImage.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.ic_account_circle_black_36dp));
                 } else {
