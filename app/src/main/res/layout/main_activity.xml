@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/drawer_layout"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainactivity_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:openDrawer="start">
+        android:orientation="vertical">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/blue_waves"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:ignore="MissingConstraints" />
-
-    <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
-        android:id="@+id/rooms_waveswiperefresh_layout_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" >
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@color/blue_waves"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        </android.support.design.widget.AppBarLayout>
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/rooms_recycler_view_id"
+            <FrameLayout android:id="@+id/mainactivity_contentFrame"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/room_item"
-                android:clipToPadding="false" />
+                android:layout_height="match_parent" />
+
         <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,14 +41,12 @@
                 app:fabSize="normal"
                 app:pressedTranslationZ="12dp"
                 android:layout_gravity="bottom|end"
-            app:layout_anchor="@id/rooms_recycler_view_id"
+            app:layout_anchor="@id/mainactivity_contentFrame"
             app:rippleColor="@android:color/white"               app:layout_anchorGravity="bottom|right|end"
                 />
         </android.support.design.widget.CoordinatorLayout>
-
-    </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
-
-        <!-- Navigation Drawer -->
+    </LinearLayout>
+      <!-- Navigation Drawer -->
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
@@ -61,4 +56,4 @@
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/menu_main" />
 
-    </android.support.v4.widget.DrawerLayout>
+</android.support.v4.widget.DrawerLayout>
