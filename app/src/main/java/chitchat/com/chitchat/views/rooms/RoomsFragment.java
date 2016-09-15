@@ -58,7 +58,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+//        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
     @Nullable
