@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -36,11 +37,14 @@ import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
  */
 
 public class RoomsFragment extends Fragment implements MainView {
+    private static final String ROOMSFRAGMENTTAG = RoomsFragment.class.getSimpleName();
+
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
     private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView mRecyclerView;
     private SweetAlertDialog progressDialog;
+    private DatabaseReference mDatabase;
 
     public RoomsFragment(){}
 
@@ -55,7 +59,7 @@ public class RoomsFragment extends Fragment implements MainView {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rooms_recycler_view_id);
         waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)rootView.findViewById(R.id.rooms_waveswiperefresh_layout_id);
 
-        mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setStackFromEnd(true);
         initFirebaseDatabase();
 
@@ -87,7 +91,7 @@ public class RoomsFragment extends Fragment implements MainView {
             @Override
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
-                Log.d(MAINACTIVITY_TAG,
+                Log.d(ROOMSFRAGMENTTAG,
                         "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
                                 "Unreads: ");
                 viewHolder.bind(model);
@@ -116,7 +120,7 @@ public class RoomsFragment extends Fragment implements MainView {
 
     @Override
     public void setItems(List<RoomModel> roomModelList) {
-        mRecyclerView.setAdapter(new RoomAdapter(this, roomModelList,R.layout.room_item));
+        mRecyclerView.setAdapter(new RoomAdapter(getActivity(), roomModelList,R.layout.room_item));
     }
 
     @Override
