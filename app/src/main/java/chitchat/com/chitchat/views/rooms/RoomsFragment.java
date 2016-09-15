@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.RoomModel;
@@ -43,6 +44,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     private static final String ROOMSFRAGMENTTAG = RoomsFragment.class.getSimpleName();
     private WaveSwipeRefreshLayout waveSwipeRefreshLayout;
     private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
+    private RoomAdapter roomAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView mRecyclerView;
     private SweetAlertDialog progressDialog;
@@ -60,8 +62,6 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initFirebaseDatabase();
-//        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
     @Nullable
@@ -92,7 +92,12 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
         mDatabase.child(Contract.ROOMSNODE).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(ROOMSFRAGMENTTAG+"RoomNodeChildren", dataSnapshot.getChildren().toString());
+                RoomModel roomModel = dataSnapshot.getValue(RoomModel.class);
+                roomModel = new RoomModel(roomModel.getRoom_name(), roomModel.getImg_url());
+                roomModelList = new ArrayList<>();
+                roomModelList.add(roomModel);
+                roomAdapter = new RoomAdapter(getActivity(),roomModelList,R.layout.room_item);
+                Log.d(ROOMSFRAGMENTTAG+"RoomNodeChildren", roomModelList.toString());
             }
 
             @Override
@@ -104,8 +109,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                 RoomModel.class,
                 R.layout.room_item,
                 RoomAdapter.ViewHolder.class,
-                mDatabase.child(Contract.ROOMSNODE).child(Contract.ROOMNAME)
-        ) {
+                mDatabase.child(Contract.ROOMSNODE)) {
             @Override
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
@@ -124,7 +128,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             }
         };
 
-/*        firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
@@ -136,7 +140,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                     mRecyclerView.scrollToPosition(positionStart);
                 }
             }
-        });*/
+        });
 
         // Set the layout manager and adapter
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
