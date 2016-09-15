@@ -1,12 +1,15 @@
 package chitchat.com.chitchat.presenter.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -85,6 +88,15 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
         RoomModel roomModel =  roomModelList.get(position);
         holder.itemView.setTag(roomModel);
         holder.bind(roomModel);
+        if (roomModel.getImg_url() == null) {
+            holder.roomImage.setImageDrawable(
+                    ContextCompat.getDrawable(context,
+                            R.mipmap.ic_launcher));
+        } else {
+            Glide.with(context)
+                    .load(roomModel.getImg_url())
+                    .into(holder.roomImage);
+        }
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{

@@ -114,13 +114,12 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             @Override
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
-                Log.d(ROOMSFRAGMENTTAG,
-                        "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
-                                "Unreads: ");
+                Log.d(ROOMSFRAGMENTTAG, "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name());
                 viewHolder.roomName.setText(model.getRoom_name());
-                /*if room has no photo, set a placeholder image*/
                 if (model.getImg_url() == null) {
-                    viewHolder.roomImage.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.ic_account_circle_black_36dp));
+                    viewHolder.roomImage.setImageDrawable(
+                            ContextCompat.getDrawable(getActivity(),
+                                    R.mipmap.ic_launcher));
                 } else {
                     Glide.with(getActivity())
                             .load(model.getImg_url())
