@@ -106,7 +106,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
         public ImageView roomImage;
         public TextView roomName,roomMembers;
         public Button isMember;
-
         public ViewHolder(View itemView) {
             super(itemView);
             roomName = (TextView)itemView.findViewById(R.id.forum_item_name);
@@ -118,7 +117,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
         /*binds the item views to the model class*/
         public void bind(RoomModel roomModel){
             roomName.setText(roomModel.getRoom_name());
-            roomMembers.setText(roomModel.getMembers());
+            roomMembers.setText(String.valueOf(roomModel.getMembers()));
         }
     }
 

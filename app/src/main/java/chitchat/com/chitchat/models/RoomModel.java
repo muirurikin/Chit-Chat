@@ -14,10 +14,9 @@ public class RoomModel {
     public RoomModel(){}
 
     /**Constructor that takes in the parameters to pass to the Adapter*/
-    public RoomModel(String room_name,String img_url, long members) {
+    public RoomModel(String room_name,String img_url) {
         this.room_name = room_name;
         this.img_url = img_url;
-        this.members = members;
     }
 
     public String getRoom_name() {
