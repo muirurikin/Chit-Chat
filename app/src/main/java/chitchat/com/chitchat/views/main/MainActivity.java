@@ -33,6 +33,7 @@ import chitchat.com.chitchat.models.RoomModel;
 import chitchat.com.chitchat.presenter.mainpresenters.FindItemsInteractorImpl;
 import chitchat.com.chitchat.presenter.mainpresenters.MainPresenter;
 import chitchat.com.chitchat.presenter.mainpresenters.MainPresenterImpl;
+import chitchat.com.chitchat.views.rooms.RoomsFragment;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
@@ -69,6 +70,14 @@ public class MainActivity extends AppCompatActivity implements MainView{
         NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_view);
         if(navigationView != null){
             setUpDrawerContents(navigationView);
+        }
+
+        //create the fragment
+        RoomsFragment roomsFragment = (RoomsFragment) getSupportFragmentManager().findFragmentById(R.id.mainactivity_contentFrame);
+        if (roomsFragment ==null){
+            roomsFragment = RoomsFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(
+                    getSupportFragmentManager(), roomsFragment, R.id.mainactivity_contentFrame);
         }
         initViews();
         initFirebaseDatabase();
