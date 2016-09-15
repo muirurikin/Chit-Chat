@@ -95,8 +95,9 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RoomModel roomModel = dataSnapshot.getValue(RoomModel.class);
-
-                roomModel = new RoomModel(roomModel.getRoom_name(), roomModel.getImg_url());
+                long memberCount = dataSnapshot.child("members").getChildrenCount();
+                Log.d(ROOMSFRAGMENTTAG+"MEMBERS",String.valueOf(memberCount));
+                roomModel = new RoomModel(roomModel.getRoom_name(), roomModel.getImg_url(),roomModel.getMemberNode() ,roomModel.getMembers());
                 roomModelList = new ArrayList<>();
                 roomModelList.add(roomModel);
                 roomAdapter = new RoomAdapter(getActivity(),roomModelList,R.layout.room_item);
@@ -115,8 +116,10 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             @Override
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
-                Log.d(ROOMSFRAGMENTTAG, "Image URL: " + model.getImg_url() + " Name: "+ model.getRoom_name());
+                Log.d(ROOMSFRAGMENTTAG, "Image URL: " + model.getImg_url() + " Name: "+ model.getRoom_name()+ " members: " + model.getMembers());
+
                 viewHolder.roomName.setText(model.getRoom_name());
+                viewHolder.roomMembers.setText(model.getMembers());
                 if (model.getImg_url() == null || model.getImg_url().isEmpty()) {
                     viewHolder.roomImage.setImageDrawable(
                             ContextCompat.getDrawable(getActivity(),
