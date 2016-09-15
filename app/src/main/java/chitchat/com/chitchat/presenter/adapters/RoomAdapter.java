@@ -93,20 +93,17 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
     public static class ViewHolder extends  RecyclerView.ViewHolder{
         private CircleImageView forumImage;
         private TextView forumName;
-        private TextView unreadMessages;
         private Context context;
 
         public ViewHolder(View itemView) {
             super(itemView);
             forumName = (TextView)itemView.findViewById(R.id.forum_item_name);
             forumImage = (CircleImageView)itemView.findViewById(R.id.forum_item_img);
-            unreadMessages = (TextView)itemView.findViewById(R.id.forum_item_unread);
         }
 
         /*binds the item views to the model class*/
         public void bind(RoomModel roomModel){
-            forumName.setText(roomModel.getRooms());
-            unreadMessages.setText(roomModel.getUnreadPosts());
+            forumName.setText(roomModel.getRoom_name());
             if(roomModel.getImg_url() == null){
                 forumImage.setImageDrawable(ContextCompat.getDrawable(context,
                         R.drawable.ic_account_circle_black_36dp));

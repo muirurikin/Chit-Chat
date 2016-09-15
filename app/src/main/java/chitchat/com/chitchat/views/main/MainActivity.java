@@ -123,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
             protected void populateViewHolder(RoomAdapter.ViewHolder viewHolder, RoomModel model,
                                               int position) {
                 Log.d(MAINACTIVITY_TAG,
-                        "Image URL: " + model.getImg_url() + "Name: "+ model.getRooms()+
-                                "Unreads: " + model.getUnreadPosts());
+                        "Image URL: " + model.getImg_url() + "Name: "+ model.getRoom_name()+
+                                "Unreads: ");
                 viewHolder.bind(model);
             }
         };
