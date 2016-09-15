@@ -129,7 +129,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             }
         };
 
-        firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+/*        firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
@@ -141,7 +141,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                     mRecyclerView.scrollToPosition(positionStart);
                 }
             }
-        });
+        });*/
 
         // Set the layout manager and adapter
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
