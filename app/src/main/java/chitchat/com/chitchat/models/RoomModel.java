@@ -8,13 +8,13 @@ import java.util.HashMap;
  * */
 
 public class RoomModel {
-    private String room_name, img_url, members;
-
+    private String room_name, img_url;
+    private long members;
     /**Empty constructor*/
     public RoomModel(){}
 
     /**Constructor that takes in the parameters to pass to the Adapter*/
-    public RoomModel(String room_name,String img_url, String members) {
+    public RoomModel(String room_name,String img_url, long members) {
         this.room_name = room_name;
         this.img_url = img_url;
         this.members = members;
@@ -36,11 +36,11 @@ public class RoomModel {
         this.img_url = img_url;
     }
 
-    public String getMembers() {
-        return members + " members";
+    public long getMembers() {
+        return members;
     }
 
-    public void setMembers(String members) {
+    public void setMembers(long members) {
         this.members = members;
     }
 

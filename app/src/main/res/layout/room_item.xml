@@ -35,13 +35,22 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/forum_item_name"
                 android:textColor="@color/black" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView android:id="@+id/forum_item_members" android:text="@string/forum_members" android:textSize="20sp" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/forum_item_members"
-                android:text="@string/forum_members"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:text="@string/forum_members_text"
+                    android:textSize="20sp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <Button
