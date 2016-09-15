@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
     private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DatabaseReference mDatabase;
     private ListView roomList;
+    private DrawerLayout mDrawerLayout;
     private FirebaseRecyclerAdapter<RoomModel, RoomAdapter.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView mRecyclerView;
@@ -51,15 +55,50 @@ public class MainActivity extends AppCompatActivity implements MainView{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
+        if (ab != null) {
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
 
         mainPresenter = new MainPresenterImpl(this, new FindItemsInteractorImpl());
         progressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
 
+        // set up the navigation drawer
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.mainactivity_drawer_layout);
+        mDrawerLayout.setStatusBarBackground(R.color.colorPrimary);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_view);
+        if(navigationView != null){
+            setUpDrawerContents(navigationView);
+        }
         initViews();
         initFirebaseDatabase();
     }
+
+    /**Sets up the contents of the DrawerLayout*/
+    private void setUpDrawerContents(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.home_menu_item:
+                                // Do nothing, we're already on that screen
+                                break;
+                            case R.id.sign_out_menu_item:
+                                //sign out the user with firebase
+                                break;
+                            default:
+                                break;
+                        }
+                        //close the navigation drawer when an item is clicked
+                        item.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                }
+        );
+    }
+
     /**Initialize the UI controls*/
     private void initViews(){
         mRecyclerView = (RecyclerView) findViewById(R.id.rooms_recycler_view_id);

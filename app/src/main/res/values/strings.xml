@@ -8,4 +8,7 @@
 
     <string name="facebook_app_id">fb842317502572524</string>
     <string name="useremail">useremail@example.com</string>
+    <string name="user_account">My Account</string>
+    <string name="home_menu_item">Home</string>
+    <string name="signout">Sign Out</string>
 </resources>
