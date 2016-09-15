@@ -60,6 +60,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initFirebaseDatabase();
 //        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
@@ -86,12 +87,12 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     /**Initialize the Firebase database*/
     private void initFirebaseDatabase() {
         // initialize the Database
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(Contract.ROOMSNODE);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child(Contract.ROOMSNODE).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(ROOMSFRAGMENTTAG+"RoomNodeChildren", dataSnapshot.getValue().toString());
+                Log.d(ROOMSFRAGMENTTAG+"RoomNodeChildren", dataSnapshot.getChildren().toString());
             }
 
             @Override
@@ -123,7 +124,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             }
         };
 
-        firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+/*        firebaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
@@ -135,7 +136,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
                     mRecyclerView.scrollToPosition(positionStart);
                 }
             }
-        });
+        });*/
 
         // Set the layout manager and adapter
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
