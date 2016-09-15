@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.RoomModel;
@@ -96,8 +97,15 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RoomModel roomModel = dataSnapshot.getValue(RoomModel.class);
                 long memberCount = dataSnapshot.child("members").getChildrenCount();
-                Log.d(ROOMSFRAGMENTTAG+"MEMBERS",String.valueOf(memberCount));
-                roomModel = new RoomModel(roomModel.getRoom_name(), roomModel.getImg_url(),roomModel.getMemberNode() ,roomModel.getMembers());
+
+                Log.d(ROOMSFRAGMENTTAG+"MEMBERNODE",dataSnapshot.child("members").toString());
+                Log.d(ROOMSFRAGMENTTAG+"MEMBERSCount",String.valueOf(memberCount));
+
+                roomModel = new RoomModel(roomModel.getRoom_name(),
+                        roomModel.getImg_url(),
+                        roomModel.getMemberNode(),
+                        roomModel.getMembers());
+
                 roomModelList = new ArrayList<>();
                 roomModelList.add(roomModel);
                 roomAdapter = new RoomAdapter(getActivity(),roomModelList,R.layout.room_item);
