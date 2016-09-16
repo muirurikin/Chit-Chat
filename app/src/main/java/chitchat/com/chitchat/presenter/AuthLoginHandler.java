@@ -3,6 +3,7 @@ package chitchat.com.chitchat.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,8 +19,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
 import com.twitter.sdk.android.core.TwitterSession;
 
+import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.views.LoginActivity;
 import chitchat.com.chitchat.views.main.MainActivity;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Project: Chit-Chat
@@ -28,15 +31,16 @@ import chitchat.com.chitchat.views.main.MainActivity;
  * <p>
  * Description: Handles Login via Twitter, Facebook, Google and Github
  */
-public class AuthLoginHandler implements LoginPresenter{
+public class AuthLoginHandler{
 
     private static AuthLoginHandler ourInstance = new AuthLoginHandler();
 
     public static AuthLoginHandler getInstance() {
         return ourInstance;
     }
-
     private AuthLoginHandler() {}
+
+    static SweetAlertDialog pDialog;
 
     /**handles authorization with twitter by taking in a Twitter Session*/
     public static boolean handleTwitterSession(TwitterSession session, FirebaseAuth firebaseAuth, final Context context) {
@@ -44,7 +48,10 @@ public class AuthLoginHandler implements LoginPresenter{
         final boolean[] isSucess = {false};
         Log.d(TAG, "HandleTwitterSession:"+ session);
 
+        displayProgressDialog(context);
+
         /*get auth token and secret, get credentials*/
+
         AuthCredential authCredential = TwitterAuthProvider.getCredential(
                 session.getAuthToken().token,
                 session.getAuthToken().secret
@@ -52,47 +59,41 @@ public class AuthLoginHandler implements LoginPresenter{
 
         /*sign in user with Firebase credential*/
         firebaseAuth.signInWithCredential(authCredential)
-                .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                .addOnCompleteListener((Activity) context, task -> {
+                    Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(context, "Authentication with Twitter failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            isSucess[0] = false;
-                        }
-                        else{
-                            isSucess[0] = true;
-                        }
+                    // If sign in fails, display a message to the user. If sign in succeeds
+                    // the auth state listener will be notified and logic to handle the
+                    // signed in user can be handled in the listener.
+                    if (!task.isSuccessful()) {
+                        Log.w(TAG, "signInWithCredential", task.getException());
+                        isSucess[0] = !task.isSuccessful();
+                        //dismiss the progress dialog if unsuccessful, display error
+                        dismissProgressDialogWithSuccess(context, isSucess[0]);
+                    }
+                    else{
+                        isSucess[0] = task.isSuccessful();
+                        dismissProgressDialogWithSuccess(context, isSucess[0]);
                     }
                 });
         return isSucess[0];
     }
 
-
     public static void AuthGoogleWithFirebase(GoogleSignInAccount account, FirebaseAuth auth, final Context context){
         final String TAG = LoginActivity.LOGINACTIVITY;
         Log.d(TAG, "FirebaseAuthWithGoogle"+account.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        auth.signInWithCredential(credential).addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(TAG, "SignInWithCredentialComplete"+ task.isSuccessful());
-                // If sign in fails, display a message to the user. If sign in succeeds
-                // the auth state listener will be notified and logic to handle the
-                // signed in user can be handled in the listener.
-                if (!task.isSuccessful()) {
-                    Log.w(TAG, "signInWithCredential", task.getException());
-                    Toast.makeText(context, "Authentication with Google failed.",
-                            Toast.LENGTH_SHORT).show();
-                }else{
-                    MainActivity.start(context);
-                }
+        auth.signInWithCredential(credential).addOnCompleteListener((Activity) context, task -> {
+            Log.d(TAG, "SignInWithCredentialComplete"+ task.isSuccessful());
+            // If sign in fails, display a message to the user. If sign in succeeds
+            // the auth state listener will be notified and logic to handle the
+            // signed in user can be handled in the listener.
+            if (!task.isSuccessful()) {
+                Log.w(TAG, "signInWithCredential", task.getException());
+                Toast.makeText(context, "Authentication with Google failed.",
+                        Toast.LENGTH_SHORT).show();
+            }else{
+                MainActivity.start(context);
             }
         });
 
@@ -113,38 +114,41 @@ public class AuthLoginHandler implements LoginPresenter{
         // get the access token to get the credential and pass this to Firebase AUthCredential
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential).addOnCompleteListener((Activity) context,
-                new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(TAG, "SignInWithCredentialFacebook: " + task.isSuccessful());
-                /*if not successful, inform user on failure*/
-                if(!task.isSuccessful()){
-                    Log.w(TAG, "signInWithCredential:FacebookFailed: ", task.getException());
+                task -> {
+                    Log.d(TAG, "SignInWithCredentialFacebook: " + task.isSuccessful());
+                    /*if not successful, inform user on failure*/
+                    if(!task.isSuccessful()){
+                        Log.w(TAG, "signInWithCredential:FacebookFailed: ", task.getException());
 
-                    Toast.makeText(context, "Authentication with Facebook failed.",
-                            Toast.LENGTH_SHORT).show();
-                    isSucess[0] = false;
-                }else{
-                    isSucess[0] = true;
-                }
-            }
-        });
+                        Toast.makeText(context, "Authentication with Facebook failed.",
+                                Toast.LENGTH_SHORT).show();
+                        isSucess[0] = false;
+                    }else{
+                        isSucess[0] = true;
+                    }
+                });
         return isSucess[0];
     }
 
-    @Override
-    public void displayError() {
-
+    /**Display the progress dialog while loading*/
+    private static void displayProgressDialog(Context context) {
+        pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(ContextCompat.getColor(context, R.color.blue));
+        pDialog.setTitleText(String.valueOf(R.string.loading_title_txt));
+        pDialog.show();
     }
 
-    @Override
-    public void displayLoading() {
-
+    /**Dismiss the progress dialog displaying either error message or sucess message*/
+    private static void dismissProgressDialogWithSuccess(Context context, boolean success){
+        if(pDialog.isShowing() && success){
+            pDialog.setTitleText("Success!");
+            pDialog.dismissWithAnimation();
+        }else{
+            pDialog = new SweetAlertDialog(context,SweetAlertDialog.ERROR_TYPE);
+            pDialog.setTitleText("Authentication Failed. Please try again");
+            pDialog.dismissWithAnimation();
+        }
     }
 
-    @Override
-    public void dismissLoading() {
-
-    }
 /*END*/
 }
