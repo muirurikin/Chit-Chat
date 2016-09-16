@@ -62,10 +62,14 @@
             </intent-filter>
         </activity>
 
+        <!--MAIN ACTIVITY-->
         <activity
             android:name=".views.main.MainActivity"
             android:label="@string/rooms_title">
         </activity>
+
+        <!--ROOM DETAILS-->
+        <activity android:name=".views.rooms.RoomDetails"/>
 
     </application>
 

@@ -87,6 +87,7 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             @Override
             public void onItemClick(View view, int position) {
                 
+                startActivity(new Intent(getActivity(),RoomDetails.class));
             }
         }));
     }
