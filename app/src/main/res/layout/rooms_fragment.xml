@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rooms_waveswiperefresh_layout_id"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/room_item"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
         android:clipToPadding="false" />
 
 </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>

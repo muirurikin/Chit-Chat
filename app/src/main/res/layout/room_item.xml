@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:focusable="true"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:background="?android:attr/selectableItemBackground"
     android:contentDescription="@null"
     app:cardUseCompatPadding="true"
     android:layout_height="wrap_content" >

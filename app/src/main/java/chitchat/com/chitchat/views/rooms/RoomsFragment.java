@@ -76,6 +76,12 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
         return rootView;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
     // TODO: OVERRIDE?
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
