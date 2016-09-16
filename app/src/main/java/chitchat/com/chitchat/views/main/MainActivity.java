@@ -141,7 +141,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //add a new room to firebase database
                 SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this,
                         SweetAlertDialog.NORMAL_TYPE);
-
+                sweetAlertDialog
+                        .setTitleText(getResources().getString(R.string.create_room_title))
+                        .setCancelText(getResources().getString(R.string.cancel_room_create))
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setConfirmText(getResources().getString(R.string.create_room_text))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                //retrieve name of room from edit text and send to Firebase
+                            }
+                        })
+                ;
                 break;
         }
     }

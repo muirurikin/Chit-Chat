@@ -17,5 +17,8 @@
     <string name="profile_menu_item">Profile</string>
     <string name="people_menu_item">People</string>
     <string name="settings_menu_item">Settings</string>
+    <string name="create_room_title">Create a new room</string>
+    <string name="cancel_room_create">Cancel</string>
+    <string name="create_room_text">Create Room</string>
 
 </resources>
