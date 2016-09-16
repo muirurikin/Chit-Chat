@@ -28,6 +28,7 @@ import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.RoomModel;
 import chitchat.com.chitchat.presenter.Contract;
 import chitchat.com.chitchat.presenter.adapters.RoomAdapter;
+import chitchat.com.chitchat.presenter.roompresenters.ItemClickListener;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
@@ -80,6 +81,14 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //start the next activity with details about this room
+        mRecyclerView.addOnItemTouchListener(new ItemClickListener(getActivity(),
+                new ItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                
+            }
+        }));
     }
 
     // TODO: OVERRIDE?
