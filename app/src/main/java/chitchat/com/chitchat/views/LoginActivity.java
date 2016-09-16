@@ -14,6 +14,8 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton googleSignInButton;
     private GoogleApiClient mGoogleApiClient;
     private CallbackManager callbackManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,14 +110,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         twitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-                AuthLoginHandler.handleTwitterSession(result.data, firebaseAuth, LoginActivity.this);
+                //if login with Twitter is successful, start Main Activity
+                if(AuthLoginHandler.handleTwitterSession(result.data, firebaseAuth, LoginActivity.this)){
+                    MainActivity.start(LoginActivity.this);
+                }else{
+                    displayError();
+                }
             }
 
             @Override
             public void failure(TwitterException exception) {
                 Log.w(LOGINACTIVITY, "twitterLogin:failure", exception);
 
-                //TODO: change display of login failure
+                //TODO: change display Snackbar failure
                 Toast.makeText(LoginActivity.this, "Twitter Login failure", Toast.LENGTH_SHORT).show();
             }
         });
@@ -166,6 +174,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         // result returned from launching the intent
         if(requestCode == RC_SIGN_IN){
+
             GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if(googleSignInResult.isSuccess()){
                 //Google sign in was successful authenticate with Firebase

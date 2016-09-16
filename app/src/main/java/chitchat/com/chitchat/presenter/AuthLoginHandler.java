@@ -39,8 +39,9 @@ public class AuthLoginHandler {
     private AuthLoginHandler() {}
 
     /**handles authorization with twitter by taking in a Twitter Session*/
-    public static void handleTwitterSession(TwitterSession session, FirebaseAuth firebaseAuth, final Context context) {
+    public static boolean handleTwitterSession(TwitterSession session, FirebaseAuth firebaseAuth, final Context context) {
         final String TAG = LoginActivity.LOGINACTIVITY;
+        final boolean[] isSucess = {false};
         Log.d(TAG, "HandleTwitterSession:"+ session);
 
         /*get auth token and secret, get credentials*/
@@ -61,14 +62,16 @@ public class AuthLoginHandler {
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(context, "Authentication failed.",
+                            Toast.makeText(context, "Authentication with Twitter failed.",
                                     Toast.LENGTH_SHORT).show();
+                            isSucess[0] = false;
                         }
                         else{
-                            MainActivity.start(context);
+                            isSucess[0] = true;
                         }
                     }
                 });
+        return isSucess[0];
     }
 
 
