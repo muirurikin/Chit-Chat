@@ -28,7 +28,7 @@ import chitchat.com.chitchat.views.main.MainActivity;
  * <p>
  * Description: Handles Login via Twitter, Facebook, Google and Github
  */
-public class AuthLoginHandler {
+public class AuthLoginHandler implements LoginPresenter{
 
     private static AuthLoginHandler ourInstance = new AuthLoginHandler();
 
@@ -120,6 +120,7 @@ public class AuthLoginHandler {
                 /*if not successful, inform user on failure*/
                 if(!task.isSuccessful()){
                     Log.w(TAG, "signInWithCredential:FacebookFailed: ", task.getException());
+
                     Toast.makeText(context, "Authentication with Facebook failed.",
                             Toast.LENGTH_SHORT).show();
                     isSucess[0] = false;
@@ -129,6 +130,21 @@ public class AuthLoginHandler {
             }
         });
         return isSucess[0];
+    }
+
+    @Override
+    public void displayError() {
+
+    }
+
+    @Override
+    public void displayLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
     }
 /*END*/
 }

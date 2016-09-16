@@ -20,6 +20,9 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        jackOptions{
+            enabled true
+        }
     }
     buildTypes {
         release {
@@ -33,8 +36,9 @@ android {
         it.buildConfigField "String", "TWITTER_SECRET", TwitterSecret
     }
 
+    //disable dataBinding as it is not compatible with jackOptions
     dataBinding {
-        enabled = true
+        enabled = false
     }
 
     productFlavors {
@@ -51,6 +55,10 @@ android {
             minSdkVersion 9
         }
 
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 

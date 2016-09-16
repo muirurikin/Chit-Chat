@@ -10,4 +10,6 @@ package chitchat.com.chitchat.presenter;
 
 public interface LoginPresenter {
     void displayError();
+    void displayLoading();
+    void dismissLoading();
 }

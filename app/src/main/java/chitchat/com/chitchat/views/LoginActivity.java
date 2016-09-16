@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void initializeLogins() {
         /*handle Twitter callback*/
         twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+
             @Override
             public void success(Result<TwitterSession> result) {
                 //if login with Twitter is successful, start Main Activity
@@ -212,7 +213,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
-        Log.d(LOGINACTIVITY, "onConnectionFailed:" + connectionResult);
+        Log.d(LOGINACTIVITY, "onConnectionFailed: GoogleAPI" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
@@ -229,5 +230,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void displayError() {
         Toast.makeText(this, "Login with Facebook Failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void displayLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
     }
 }
