@@ -59,44 +59,52 @@ public class AuthLoginHandler{
 
         /*sign in user with Firebase credential*/
         firebaseAuth.signInWithCredential(authCredential)
-                .addOnCompleteListener((Activity) context, task -> {
-                    Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>(){
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task){
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
 
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
-                    if (!task.isSuccessful()) {
-                        Log.w(TAG, "signInWithCredential", task.getException());
-                        isSucess[0] = !task.isSuccessful();
-                        //dismiss the progress dialog if unsuccessful, display error
-                        dismissProgressDialogWithSuccess(context, isSucess[0]);
-                    }
-                    else{
-                        isSucess[0] = task.isSuccessful();
-                        dismissProgressDialogWithSuccess(context, isSucess[0]);
+                            //dismiss the progress dialog if unsuccessful, display error
+                            dismissProgressDialogWithSuccess(context, task.isSuccessful());
+                            isSucess[0] = false;
+                        }
+                        else{
+                            isSucess[0] = true;
+                        }
                     }
                 });
         return isSucess[0];
     }
 
-    public static void AuthGoogleWithFirebase(GoogleSignInAccount account, FirebaseAuth auth, final Context context){
+    public static void AuthGoogleWithFirebase(GoogleSignInAccount account, FirebaseAuth auth,
+                                              final Context context){
         final String TAG = LoginActivity.LOGINACTIVITY;
         Log.d(TAG, "FirebaseAuthWithGoogle"+account.getId());
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        auth.signInWithCredential(credential).addOnCompleteListener((Activity) context, task -> {
-            Log.d(TAG, "SignInWithCredentialComplete"+ task.isSuccessful());
-            // If sign in fails, display a message to the user. If sign in succeeds
-            // the auth state listener will be notified and logic to handle the
-            // signed in user can be handled in the listener.
-            if (!task.isSuccessful()) {
-                Log.w(TAG, "signInWithCredential", task.getException());
-                Toast.makeText(context, "Authentication with Google failed.",
-                        Toast.LENGTH_SHORT).show();
-            }else{
-                MainActivity.start(context);
-            }
-        });
 
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+
+        auth.signInWithCredential(credential).addOnCompleteListener((Activity) context,
+                new OnCompleteListener<AuthResult>(){
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task){
+                        Log.d(TAG, "SignInWithCredentialComplete"+ task.isSuccessful());
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(context, "Authentication with Google failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }else{
+                            MainActivity.start(context);
+                        }
+                    }
+                });
     }
 
     /**handles FacebookLogin token
@@ -114,17 +122,20 @@ public class AuthLoginHandler{
         // get the access token to get the credential and pass this to Firebase AUthCredential
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential).addOnCompleteListener((Activity) context,
-                task -> {
-                    Log.d(TAG, "SignInWithCredentialFacebook: " + task.isSuccessful());
-                    /*if not successful, inform user on failure*/
-                    if(!task.isSuccessful()){
-                        Log.w(TAG, "signInWithCredential:FacebookFailed: ", task.getException());
+                new OnCompleteListener<AuthResult>(){
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "SignInWithCredentialFacebook: " + task.isSuccessful());
+                        /*if not successful, inform user on failure*/
+                        if(!task.isSuccessful()){
+                            Log.w(TAG, "signInWithCredential:FacebookFailed: ", task.getException());
 
-                        Toast.makeText(context, "Authentication with Facebook failed.",
-                                Toast.LENGTH_SHORT).show();
-                        isSucess[0] = false;
-                    }else{
-                        isSucess[0] = true;
+                            Toast.makeText(context, "Authentication with Facebook failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            isSucess[0] = false;
+                        }else{
+                            isSucess[0] = true;
+                        }
                     }
                 });
         return isSucess[0];
