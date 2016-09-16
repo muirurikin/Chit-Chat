@@ -39,7 +39,6 @@ public class AuthLoginHandler{
         return ourInstance;
     }
     private AuthLoginHandler() {}
-
     static SweetAlertDialog pDialog;
 
     /**handles authorization with twitter by taking in a Twitter Session*/
@@ -51,7 +50,6 @@ public class AuthLoginHandler{
         displayProgressDialog(context);
 
         /*get auth token and secret, get credentials*/
-
         AuthCredential authCredential = TwitterAuthProvider.getCredential(
                 session.getAuthToken().token,
                 session.getAuthToken().secret
@@ -67,14 +65,13 @@ public class AuthLoginHandler{
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
-
+                            Log.w(TAG, "signInWithCredential, Twitter", task.getException());
                             //dismiss the progress dialog if unsuccessful, display error
                             dismissProgressDialogWithSuccess(context, task.isSuccessful());
-                            isSucess[0] = false;
+                            isSucess[0] = !task.isSuccessful();
                         }
                         else{
-                            isSucess[0] = true;
+                            isSucess[0] = task.isSuccessful();
                         }
                     }
                 });
@@ -85,7 +82,7 @@ public class AuthLoginHandler{
                                               final Context context){
         final String TAG = LoginActivity.LOGINACTIVITY;
         Log.d(TAG, "FirebaseAuthWithGoogle"+account.getId());
-
+        displayProgressDialog(context);
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 
         auth.signInWithCredential(credential).addOnCompleteListener((Activity) context,
@@ -98,8 +95,8 @@ public class AuthLoginHandler{
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(context, "Authentication with Google failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            //dismiss the progress dialog if unsuccessful, display error
+                            dismissProgressDialogWithSuccess(context, task.isSuccessful());
                         }else{
                             MainActivity.start(context);
                         }
@@ -118,6 +115,7 @@ public class AuthLoginHandler{
         final boolean[] isSucess = {false};
         final String TAG = LoginActivity.LOGINACTIVITY;
         Log.d(TAG, "FirebaseWithFacebook:"+ token);
+        displayProgressDialog(context);
 
         // get the access token to get the credential and pass this to Firebase AUthCredential
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -129,12 +127,12 @@ public class AuthLoginHandler{
                         /*if not successful, inform user on failure*/
                         if(!task.isSuccessful()){
                             Log.w(TAG, "signInWithCredential:FacebookFailed: ", task.getException());
+                            isSucess[0] = task.isSuccessful();
 
-                            Toast.makeText(context, "Authentication with Facebook failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            isSucess[0] = false;
+                            //dismiss the progress dialog if unsuccessful, display error
+                            dismissProgressDialogWithSuccess(context, isSucess[0]);
                         }else{
-                            isSucess[0] = true;
+                            isSucess[0] = task.isSuccessful();
                         }
                     }
                 });
@@ -145,7 +143,7 @@ public class AuthLoginHandler{
     private static void displayProgressDialog(Context context) {
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(ContextCompat.getColor(context, R.color.blue));
-        pDialog.setTitleText(String.valueOf(R.string.loading_title_txt));
+        pDialog.setTitleText("Loading...please wait");
         pDialog.show();
     }
 

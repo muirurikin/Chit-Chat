@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 if(AuthLoginHandler.handleTwitterSession(result.data, firebaseAuth, LoginActivity.this)){
                     MainActivity.start(LoginActivity.this);
                 }else{
-                    displayError();
+                    displayError("Twitter");
                 }
             }
 
@@ -149,11 +149,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onSuccess(LoginResult loginResult) {
                 Log.d(LOGINACTIVITY,"FacebookLoginSuccess "+ loginResult);
                 //pass the token to handle with Firebase login
-                if(AuthLoginHandler.handleFacebookLoginToken(loginResult.getAccessToken(),firebaseAuth, LoginActivity.this)){
+                if(AuthLoginHandler.handleFacebookLoginToken(loginResult.getAccessToken(),
+                        firebaseAuth, LoginActivity.this)){
                     /*if successful start the MainActivity*/
                     MainActivity.start(LoginActivity.this);
                 }else{
-                    displayError();
+                    displayError("Facebook");
                 }
             }
 
@@ -228,8 +229,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     @Override
-    public void displayError() {
-        Toast.makeText(this, "Login with Facebook Failed", Toast.LENGTH_SHORT).show();
+    public void displayError(String message) {
+        Toast.makeText(this, "Login with " + message + " Failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -9,7 +9,7 @@ package chitchat.com.chitchat.presenter;
  */
 
 public interface LoginPresenter {
-    void displayError();
+    void displayError(String message);
     void displayLoading();
     void dismissLoading();
 }
