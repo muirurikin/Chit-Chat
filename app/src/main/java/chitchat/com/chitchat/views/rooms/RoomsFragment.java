@@ -93,11 +93,10 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RoomModel roomModel = dataSnapshot.getValue(RoomModel.class);
 
-                String key = dataSnapshot.getKey();
-                Log.d(ROOMSFRAGMENTTAG+" KEY",key);
+                String key = dataSnapshot.getChildren().iterator().next().getKey();
+                Log.d(ROOMSFRAGMENTTAG+" KEYs",key);
 
-                roomModel = new RoomModel(roomModel.getRoom_name(),
-                        roomModel.getImg_url());
+                roomModel = new RoomModel(roomModel.getRoom_name(), roomModel.getImg_url());
 
                 roomModelList = new ArrayList<>();
                 roomModelList.add(roomModel);

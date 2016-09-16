@@ -18,6 +18,7 @@ import java.util.List;
 
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.RoomModel;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -100,6 +101,37 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
                     .load(roomModel.getImg_url())
                     .into(holder.roomImage);
         }
+        //Ask user whether they want to exit the Room
+        holder.isMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(context,
+                        SweetAlertDialog.WARNING_TYPE);
+                sweetAlertDialog.setTitleText("Leave this room?")
+                        .setContentText("Your content will remain visible in the room after you have left.")
+                        .setConfirmText("Yes,delete it!")
+                        .setCancelText("Cancel, never mind.")
+                        .show();
+
+                //if user clicks on confirm button, leave the room and change the text on button to JOIN
+                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        //TODO: remove this user from the member node for this room
+                        // todo: change the text of this button to JOIN
+
+                    }
+                });
+
+                //dismiss the dialog if the user clicks on cancel
+                sweetAlertDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+            }
+        });
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
