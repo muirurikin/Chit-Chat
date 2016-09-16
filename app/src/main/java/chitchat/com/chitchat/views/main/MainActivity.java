@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,8 +25,9 @@ import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.utils.ActivityUtils;
 import chitchat.com.chitchat.views.LoginActivity;
 import chitchat.com.chitchat.views.rooms.RoomsFragment;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String MAINACTIVITY_TAG = MainActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
     private ImageView userImage;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.mainact_fab);
+        floatingActionButton.setOnClickListener(this);
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -130,6 +133,19 @@ public class MainActivity extends AppCompatActivity{
                 }
         );
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.mainact_fab:
+                //add a new room to firebase database
+                SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this,
+                        SweetAlertDialog.NORMAL_TYPE);
+
+                break;
+        }
+    }
+
 
     @Override
     protected void onResume() {

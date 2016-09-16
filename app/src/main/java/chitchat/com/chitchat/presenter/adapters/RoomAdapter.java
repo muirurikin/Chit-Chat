@@ -109,27 +109,29 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
                         SweetAlertDialog.WARNING_TYPE);
                 sweetAlertDialog.setTitleText("Leave this room?")
                         .setContentText("Your content will remain visible in the room after you have left.")
+                        //set confirm text and bind listener to it
                         .setConfirmText("Yes,delete it!")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                //TODO: remove this user from the member node for this room
+                                // todo: change the text of this button to JOIN
+                                sweetAlertDialog
+                                        .setTitleText("Leaving...")
+                                        .setConfirmClickListener(null)
+                                        .dismissWithAnimation();
+                            }
+                        })
+                        //set cancel text and bind listener to it
                         .setCancelText("Cancel,never mind.")
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        })
                         .show();
 
-                //if user clicks on confirm button, leave the room and change the text on button to JOIN
-                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        //TODO: remove this user from the member node for this room
-                        // todo: change the text of this button to JOIN
-
-                    }
-                });
-
-                //dismiss the dialog if the user clicks on cancel
-                sweetAlertDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismissWithAnimation();
-                    }
-                });
             }
         });
     }

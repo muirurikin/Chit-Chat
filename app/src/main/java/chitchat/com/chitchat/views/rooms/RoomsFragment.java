@@ -67,10 +67,12 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.rooms_fragment, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rooms_recycler_view_id);
-        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)rootView.findViewById(R.id.rooms_waveswiperefresh_layout_id);
+        waveSwipeRefreshLayout = (WaveSwipeRefreshLayout)rootView.findViewById(
+                R.id.rooms_waveswiperefresh_layout_id);
 
         mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         initFirebaseDatabase();
