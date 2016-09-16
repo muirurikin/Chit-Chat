@@ -113,6 +113,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void failure(TwitterException exception) {
                 Log.w(LOGINACTIVITY, "twitterLogin:failure", exception);
+
                 //TODO: change display of login failure
                 Toast.makeText(LoginActivity.this, "Twitter Login failure", Toast.LENGTH_SHORT).show();
             }
