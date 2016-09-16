@@ -110,7 +110,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
                 sweetAlertDialog.setTitleText("Leave this room?")
                         .setContentText("Your content will remain visible in the room after you have left.")
                         .setConfirmText("Yes,delete it!")
-                        .setCancelText("Cancel, never mind.")
+                        .setCancelText("Cancel,never mind.")
                         .show();
 
                 //if user clicks on confirm button, leave the room and change the text on button to JOIN
