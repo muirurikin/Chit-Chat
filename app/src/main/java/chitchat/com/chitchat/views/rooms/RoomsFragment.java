@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import chitchat.com.chitchat.R;
 import chitchat.com.chitchat.models.RoomModel;
@@ -32,8 +30,6 @@ import chitchat.com.chitchat.presenter.Contract;
 import chitchat.com.chitchat.presenter.adapters.RoomAdapter;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Project: Chit-Chat
@@ -184,7 +180,6 @@ public class RoomsFragment extends Fragment implements RoomsContract.View {
 
     @Override
     public void setPresenter(@NonNull RoomsContract.Presenter presenter) {
-        roomsPresenter = checkNotNull(presenter);
     }
 
 }
